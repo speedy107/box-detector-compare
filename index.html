@@ -4,34 +4,32 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#101827">
-  <title>Box Compare · V5 vs your model</title>
+  <title>Box Lens · Your best.onnx detector</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
   <script defer src="vendor/ort.wasm.min.js"></script>
-  <script type="module" src="app.js"></script>
+  <script type="module" src="app.js?v=best-1"></script>
 </head>
 <body>
 <main>
   <header>
     <div class="eyebrow">BLUE & RED BOX DETECTION <span class="private">● Runs on your device</span></div>
-    <h1>Two models.<br><span>One frame.</span></h1>
-    <p>Compare your ONNX detector against V5. Choose a photo or use your camera to see both results side by side.</p>
+    <h1>Your model.<br><span>Live detection.</span></h1>
+    <p>Find blue and red boxes with your trained detector. Choose a photo or start your camera.</p>
   </header>
-  <section class="setup" aria-label="Comparison model">
-    <div><span class="step">01</span><h2>Add your model</h2><p id="modelName">V5 is included. Choose best.onnx or another compatible model.</p><small>320 × 320 input · blue_box (0), red_box (1)</small></div>
-    <label class="button upload" for="modelFile">Choose ONNX<input id="modelFile" type="file" accept=".onnx"></label>
+  <section class="setup" aria-label="Included model">
+    <div><span class="step">01</span><h2>Your trained model</h2><p id="modelName">best.onnx · included and loaded automatically</p><small>Blue box & red box detection · 320 × 320</small></div>
+    <span id="modelState" class="model-state">Loading…</span>
   </section>
   <section class="controls" aria-label="Image and camera controls">
-    <div class="source-buttons"><label class="button primary" for="photoFile">Choose photo<input id="photoFile" type="file" accept="image/*"></label><button id="start" class="button">Start camera</button><button id="stop" class="button" disabled>Stop</button><button id="save" class="button" disabled>Save comparison</button></div>
+    <div class="source-buttons"><label class="button primary" for="photoFile">Choose photo<input id="photoFile" type="file" accept="image/*"></label><button id="start" class="button">Start camera</button><button id="stop" class="button" disabled>Stop</button><button id="save" class="button" disabled>Save detection</button></div>
     <label class="confidence" for="confidence">Confidence <output id="confidenceValue">35%</output><input id="confidence" type="range" min="10" max="90" step="5" value="35"></label>
   </section>
-  <div id="status" role="status" aria-live="polite">Choose your model and a photo to begin. Files stay in your browser.</div>
-  <section class="comparison" aria-label="Side-by-side model results">
-    <article class="panel"><div class="panel-heading"><h2>V5 <span>BASELINE</span></h2><span id="v5Time" class="time">—</span></div><div class="viewer"><div class="placeholder">Your frame will appear here</div><canvas id="v5Canvas" aria-label="V5 detections" hidden></canvas></div><div id="v5Counts" class="counts">No frame yet</div><ul id="v5List" class="detections"></ul></article>
-    <article class="panel"><div class="panel-heading"><h2>Your model <span id="uploadedBadge">UPLOAD ONNX</span></h2><span id="uploadedTime" class="time">—</span></div><div class="viewer"><div class="placeholder">The exact same frame, your detector</div><canvas id="uploadedCanvas" aria-label="Uploaded model detections" hidden></canvas></div><div id="uploadedCounts" class="counts">Waiting for a model</div><ul id="uploadedList" class="detections"></ul></article>
+  <div id="status" role="status" aria-live="polite">Loading your model. Photos and video stay on your device.</div>
+  <section class="detection-view" aria-label="Model detections">
+    <article class="panel"><div class="panel-heading"><h2>Your model <span>BEST.ONNX</span></h2><span id="timing" class="time">—</span></div><div class="viewer"><div class="placeholder">Choose a photo or start your camera</div><canvas id="resultCanvas" aria-label="Blue and red box detections" hidden></canvas></div><div id="counts" class="counts">No frame yet</div><ul id="detectionList" class="detections"></ul></article>
   </section>
-  <section class="summary" aria-label="Model agreement"><span class="step">02</span><div><h2 id="agreement">See where they agree</h2><p id="agreementDetail">Both models use the same frame, confidence, and overlap settings.</p></div></section>
-  <footer><p><span class="blue-dot">●</span> Blue box <span class="red-dot">●</span> Red box · Matching detections have the same class and at least 50% overlap.</p><p>Agreement is not an accuracy score. Compare with what is actually in the photo. Times are per model on this device and exclude loading.</p><p>Camera access needs HTTPS and permission. Uploaded files are processed locally and are not sent to a server.</p><a href="https://github.com/speedy107/box-detector-v5" target="_blank" rel="noreferrer">About the V5 baseline ↗</a></footer>
+  <footer><p><span class="blue-dot">●</span> Blue box <span class="red-dot">●</span> Red box</p><p>Lower confidence if boxes are missed. Raise it if other objects are labeled. New scenes may still produce errors.</p><p>Camera access needs HTTPS and permission. Your model is included; photos and video are processed locally and are not sent to a server.</p><a href="https://github.com/speedy107/box-detector-compare" target="_blank" rel="noreferrer">Source code ↗</a></footer>
 </main>
 <video id="video" autoplay muted playsinline hidden></video>
 </body>
