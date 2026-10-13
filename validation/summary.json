@@ -1,0 +1,8 @@
+{
+  "date": "2026-10-13",
+  "status": "passed",
+  "depth_export": "Official source commit and checkpoint checksum verified; FP32 vs PyTorch and Q8 vs FP32 comparisons passed on four images.",
+  "browser_checks": "Real bundled YOLO and metric depth; photo blue/red detection; negative background; save image; confidence; invalid photo recovery; mobile; depth toggle; failed model download and retry; checksum rejection and retry; simulated camera with depth; stop cancels held depth download; detection recovers after cancellation.",
+  "unit_checks": "RGB normalization, central median, aspect ratio mapping, sparse/invalid/saturated depth, unavailable labels; worker timeout, retry, completion cleanup, cancellation and message errors.",
+  "limitations": "Tests use composite images and simulated camera frames. Physical distance accuracy and phone-camera performance are unmeasured."
+}

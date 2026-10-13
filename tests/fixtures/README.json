@@ -1,0 +1,8 @@
+{
+  "description": "Synthetic validation composites made from existing real blue/red block cutouts and a generated indoor background. These verify inference integration, not physical distance accuracy.",
+  "source": "Existing /workspace/box-detector-v5/training-assets",
+  "blue_cutout": "blue_clip_02_frame_0003.png",
+  "red_cutout": "red_clip_04_frame_0003.png",
+  "background": "classroom_chairs.png",
+  "known_measured_distances": false
+}

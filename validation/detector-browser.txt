@@ -1,0 +1,1 @@
+PASS: exact bundled YOLO model, automatic load, detection-only mode, blue/red detection, export, confidence, invalid photo recovery, mobile layout, simulated camera, stop.

@@ -1,0 +1,33 @@
+{
+  "passed": true,
+  "browser": "Chromium",
+  "observations": [
+    {
+      "image": "blue.jpg",
+      "detections": "Blue box 99% \u00b7 \u2248 1.22 m",
+      "timing": "YOLO 69 ms \u00b7 depth 3619 ms"
+    },
+    {
+      "image": "red.jpg",
+      "detections": "Red box 99% \u00b7 \u2248 1.14 m",
+      "timing": "YOLO 67 ms \u00b7 depth 3501 ms"
+    },
+    {
+      "image": "simulated camera blue block",
+      "detections": "Blue box 99% \u00b7 \u2248 1.28 m",
+      "timing": "YOLO 72 ms \u00b7 depth 3851 ms"
+    }
+  ],
+  "checks": [
+    "real metric-depth model",
+    "per-block metres",
+    "mobile layout",
+    "toggle",
+    "failed download fallback and retry",
+    "checksum rejection and retry",
+    "camera with real depth inference",
+    "stop cancels loading worker",
+    "detection after cancellation"
+  ],
+  "limitations": "Composite fixtures and simulated camera; no physical distance calibration or phone performance measurements."
+}

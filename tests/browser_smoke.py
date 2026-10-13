@@ -35,6 +35,7 @@ with tempfile.TemporaryDirectory() as tmp, sync_playwright() as p:
     bundled_hash = hashlib.sha256((Path(__file__).resolve().parents[1] / 'models/best.onnx').read_bytes()).digest()
     assert served_hash == bundled_hash
     assert not any('boxes-yolo11n-v5.onnx' in url for url in requests)
+    page.locator('#depthEnabled').uncheck()
     for photo, expected in [(args.blue, '1 blue · 0 red'), (args.red, '0 blue · 1 red')]:
         page.locator('#photoFile').set_input_files(photo)
         page.wait_for_function("document.querySelector('#status').textContent.startsWith('Photo detection complete')", timeout=60000)
@@ -67,4 +68,4 @@ with tempfile.TemporaryDirectory() as tmp, sync_playwright() as p:
     assert page.evaluate("document.querySelector('#video').srcObject===null")
     assert not errors, errors
     browser.close()
-    print('PASS: exact bundled model, automatic load, blue/red detection, export, confidence, invalid photo recovery, mobile layout, simulated camera, stop.')
+    print('PASS: exact bundled YOLO model, automatic load, detection-only mode, blue/red detection, export, confidence, invalid photo recovery, mobile layout, simulated camera, stop.')

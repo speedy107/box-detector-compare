@@ -1,0 +1,70 @@
+{
+  "name": "Depth Anything V2 Metric Hypersim Small",
+  "units": "metres",
+  "max_depth": 20,
+  "source_repository": "DepthAnything/Depth-Anything-V2",
+  "source_commit": "a561b849ebae10a6f5ef49e26c83cbbcd36c71bf",
+  "checkpoint_repository": "depth-anything/Depth-Anything-V2-Metric-Hypersim-Small",
+  "checkpoint_revision": "3bc65d4e14a6786a61acec16453c50e12bf5f338",
+  "checkpoint_sha256": "b782898d8a3e8be1f639de33837ed85e9b4b73e40f8f5e5cd99067588d722545",
+  "input_shape": [
+    1,
+    3,
+    518,
+    518
+  ],
+  "output_shape": [
+    1,
+    518,
+    518
+  ],
+  "preprocessing": "Whole-frame square resize to 518x518; RGB/255; ImageNet mean/std. Distinct from YOLO letterbox.",
+  "quantization": "Per-channel signed int8 constant MatMul weights; other operations float32.",
+  "onnx_sha256": "00a6a8058bc3e967ee10481f9b7acc1597d0ae860ae6a2dd8a50670a7156e8be",
+  "onnx_bytes": 35534766,
+  "validation": [
+    {
+      "image": "blue.jpg",
+      "fp32_max_error_metres": 9.393692016601562e-05,
+      "q8_mean_relative_error": 0.006369687616825104,
+      "fp32_ms": 1650.079519999963,
+      "q8_ms": 1641.4568530000224,
+      "image_sha256": "e3e6e68467a136e50b83148e99b57177b7df11934f2de78db87c4c4ddbe4c741"
+    },
+    {
+      "image": "red.jpg",
+      "fp32_max_error_metres": 7.152557373046875e-05,
+      "q8_mean_relative_error": 0.018103761598467827,
+      "fp32_ms": 1557.4202479999713,
+      "q8_ms": 892.8436390000343,
+      "image_sha256": "cb4ceddcb276888e9bae3a30376f4b81aae518efc8c7d012306643229cbe52ed"
+    },
+    {
+      "image": "negative.jpg",
+      "fp32_max_error_metres": 9.489059448242188e-05,
+      "q8_mean_relative_error": 0.007920145988464355,
+      "fp32_ms": 2410.607810999977,
+      "q8_ms": 1783.3894259999852,
+      "image_sha256": "667900d8d934c44c211f5beaaf51417279de544952ccd964e77e2ae02b3344e6"
+    },
+    {
+      "image": "workshop_clutter.png",
+      "fp32_max_error_metres": 3.814697265625e-05,
+      "q8_mean_relative_error": 0.00798001978546381,
+      "fp32_ms": 1567.2692919999918,
+      "q8_ms": 1413.2611050000605,
+      "image_sha256": "9a2b06163c6c78683b69adc55d560dfcb463d3b44efee02019b067f5d600b2ab"
+    }
+  ],
+  "limitations": "Single-image learned optical-axis depth to the visible surface; not measured Euclidean range. Check against known distances with the target camera.",
+  "build_versions": {
+    "torch": "2.5.1+cpu",
+    "torchvision": "0.20.1+cpu",
+    "onnx": "1.17.0",
+    "onnxruntime": "1.20.1",
+    "numpy": "1.26.4",
+    "pillow": "11.0.0",
+    "opencv-python-headless": "4.10.0.84"
+  },
+  "validation_scope": "Numerical export and quantization comparisons. This does not validate physical distance accuracy."
+}
