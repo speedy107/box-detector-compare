@@ -39,7 +39,7 @@ with sync_playwright() as p:
     page.on('pageerror',lambda error:errors.append(str(error)))
     page.on('request',lambda request:requests.append(request.url))
     page.goto(args.url,wait_until='networkidle');ready(page)
-    assert page.locator('#distanceMode').input_value()=='calibrated'
+    page.locator('#distanceMode').select_option('calibrated')
     start(page)
     assert 'Calibrate first' in page.locator('#detectionList').inner_text()
     assert '≈' not in page.locator('#detectionList').inner_text()
@@ -71,7 +71,7 @@ with sync_playwright() as p:
     }""")
     page.wait_for_function("document.querySelector('#depthState').textContent==='Recalibrate camera'")
     assert '≈' not in page.locator('#detectionList').inner_text()
-    page.reload(wait_until='networkidle');ready(page);start(page)
+    page.reload(wait_until='networkidle');ready(page);page.locator('#distanceMode').select_option('calibrated');start(page)
     page.wait_for_function("document.querySelector('#detectionList').textContent.includes('≈ 3.00 m')",timeout=15000)
     # A camera calibration cannot be reused on an unrelated photo.
     page.locator('#stop').click();page.wait_for_function("!document.querySelector('#photoFile').disabled")
@@ -108,7 +108,7 @@ with sync_playwright() as p:
       track.getSettings=()=>({deviceId:'geometry-replay',width:640,height:480,zoom:1,facingMode:'environment'});
       return stream;
     };""")
-    replay.goto(args.url,wait_until='networkidle');ready(replay);start(replay)
+    replay.goto(args.url,wait_until='networkidle');ready(replay);replay.locator('#distanceMode').select_option('calibrated');start(replay)
     replay.locator('#referenceMetres').fill('3.00');replay.locator('#calibrate').click()
     replay.wait_for_function("document.querySelector('#calibrationState').textContent.includes('Reference saved')",timeout=15000)
     projection=[]

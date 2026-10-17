@@ -5,17 +5,17 @@
     {
       "image": "blue.jpg",
       "detections": "Blue box 99% \u00b7 \u2248 1.22 m",
-      "timing": "Update 5065 ms \u00b7 YOLO 182 ms \u00b7 depth 3811 ms"
+      "timing": "Update 4327 ms \u00b7 YOLO 71 ms \u00b7 depth 3807 ms"
     },
     {
       "image": "red.jpg",
       "detections": "Red box 99% \u00b7 \u2248 1.14 m",
-      "timing": "Update 3811 ms \u00b7 YOLO 68 ms \u00b7 depth 3715 ms"
+      "timing": "Update 3996 ms \u00b7 YOLO 73 ms \u00b7 depth 3895 ms"
     },
     {
       "image": "simulated camera blue block",
       "detections": "Blue box 99% \u00b7 \u2248 1.28 m",
-      "timing": "Update 4434 ms \u00b7 YOLO 134 ms \u00b7 depth 3854 ms"
+      "timing": "Update 4595 ms \u00b7 YOLO 67 ms \u00b7 depth 4117 ms"
     }
   ],
   "checks": [

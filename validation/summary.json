@@ -1,11 +1,25 @@
 {
   "date": "2026-10-17",
   "status": "passed",
-  "default_method": "Calibrated inverse apparent size of equal-size blocks; five-frame measured camera reference.",
-  "fast_mode_browser_report": "validation/calibrated-browser.json",
-  "optional_ai_browser_report": "validation/optional-ai-browser.json",
-  "checks": "Reference geometry and invalid input guards; real YOLO camera detection; calibration and persistence; lens/zoom invalidation; no AI model download in fast mode; cancellation of slow AI; annotated image export; blue/red photos and negative background; invalid photo recovery; mobile layout; optional AI integrity, retry and camera lifecycle.",
-  "performance_scope": "20 normal frames and 20 frames under 4x Chromium CPU throttling on the cloud container. Actual iQOO Neo 6 timings are unmeasured.",
-  "accuracy_scope": "Known synthetic image projection changes and mathematical scale tests only. Requires independent measurements at multiple physical distances. Rotation, occlusion and wrong-size objects can still invalidate geometry.",
-  "depth_export": "Original verified AI model is unchanged and available as an optional slow method."
+  "default_method": "Pose of confirmed 35 x 35 x 35 cm cubes, using colour-contour corners, OpenCV PnP and one five-frame measured camera reference.",
+  "moving_camera_report": "validation/moving-camera-browser.json",
+  "normal_cloud_timing": {
+    "frames": 20,
+    "median_update_ms": 77.30000000074506,
+    "p95_update_ms": 126.5,
+    "maximum_update_ms": 140.10000000149012,
+    "maximum_pose_ms": 11.400000002235174
+  },
+  "chrome_cpu_slowdown_4x": {
+    "frames": 20,
+    "median_update_ms": 346.74999999813735,
+    "p95_update_ms": 559,
+    "maximum_update_ms": 742.1000000014901,
+    "maximum_pose_ms": 7.800000000745058
+  },
+  "checks": "Ten independently rendered blue/red cube views with changing yaw/pitch/roll and distance; real YOLO and colour segmentation; camera reference and invalidation; no fixed aspect/angle constraint in the default mode; no AI depth model requested; camera restart, clear reference and mobile layout. Legacy fixed-view, detector and optional AI regressions passed.",
+  "performance_scope": "Cloud Chromium with a simulated camera. Timings on iQOO Neo 6 are unmeasured; cold OpenCV loading and initial setup are not steady-frame timings.",
+  "accuracy_scope": "Analytically rendered cubes and mathematical pose tests only. Actual phone accuracy needs measurement at multiple distances and viewpoints. Assumes 35 cm cubes, square camera pixels, centred principal point and no distortion correction. Corners must be clear and complete.",
+  "legacy_method": "The fixed-view size-ratio mode remains optional and retains its reference-angle constraint.",
+  "optional_ai": "Original AI depth model is unchanged and remains an optional slow method."
 }

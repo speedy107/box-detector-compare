@@ -6,16 +6,16 @@
   <meta name="theme-color" content="#101827">
   <title>Box Lens · Block detection and distance</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=calibrated1">
+  <link rel="stylesheet" href="styles.css?v=pose1">
   <script defer src="vendor/ort.wasm.min.js"></script>
-  <script type="module" src="app.js?v=calibrated1"></script>
+  <script type="module" src="app.js?v=pose1"></script>
 </head>
 <body>
 <main>
   <header>
     <div class="eyebrow">BLUE & RED BOX DETECTION <span class="private">● Runs on your device</span></div>
-    <h1>Find the blocks.<br><span>Measure with a reference.</span></h1>
-    <p>For same-size blocks, set one measured camera distance. Fast mode then estimates distance from each block’s apparent size.</p>
+    <h1>Find the cubes.<br><span>Move around them.</span></h1>
+    <p>For 35 cm cubes, set a camera reference once. Moving-camera mode fits their visible corners in 3D as your viewing angle changes.</p>
   </header>
   <section class="setup" aria-label="Included model">
     <div><span class="step">01</span><h2>Your trained model</h2><p id="modelName">best.onnx · included and loaded automatically</p><small>Blue box & red box detection · 320 × 320</small></div>
@@ -23,7 +23,7 @@
   </section>
   <section class="depth-controls" aria-label="Distance estimates">
     <div><label for="depthEnabled"><input id="depthEnabled" type="checkbox" checked> Estimate distance</label><p id="modeDescription">Fast mode needs a measured reference and equal-size blocks.</p></div>
-    <label class="mode-label" for="distanceMode">Method <select id="distanceMode"><option value="calibrated">Fast calibrated</option><option value="ai">AI estimate · slow</option></select></label>
+    <label class="mode-label" for="distanceMode">Method <select id="distanceMode"><option value="pose">Moving camera · 35 cm cubes</option><option value="calibrated">Fixed-view reference · legacy</option><option value="ai">AI estimate · slow</option></select></label>
     <span id="depthState" class="depth-state">Ready to load</span><button id="depthRetry" class="button" hidden>Retry depth</button>
   </section>
   <section class="controls" aria-label="Image and camera controls">
@@ -32,16 +32,16 @@
   </section>
   <div id="status" role="status" aria-live="polite">Loading your model. Photos and video stay on your device.</div>
   <section class="detection-view" aria-label="Model detections">
-    <article class="panel"><div class="panel-heading"><h2>Your detector <span id="methodBadge">FAST CALIBRATED</span></h2><span id="timing" class="time">—</span></div><div class="viewer"><div class="placeholder">Choose a photo or start your camera</div><canvas id="resultCanvas" aria-label="Blue and red block detections with estimated distance" hidden></canvas></div><div id="counts" class="counts">No frame yet</div><ul id="detectionList" class="detections"></ul><p id="latencyState" class="latency-state">Target: less than 1,000 ms per processed frame. Device speed varies.</p></article>
+    <article class="panel"><div class="panel-heading"><h2>Your detector <span id="methodBadge">CUBE POSE</span></h2><span id="timing" class="time">—</span></div><div class="viewer"><div class="placeholder">Choose a photo or start your camera</div><canvas id="resultCanvas" aria-label="Blue and red block detections with estimated distance" hidden></canvas></div><div id="counts" class="counts">No frame yet</div><ul id="detectionList" class="detections"></ul><p id="latencyState" class="latency-state">Target: less than 1,000 ms per processed frame. Device speed varies.</p></article>
     <section id="calibrationPanel" class="calibration-panel" aria-label="Camera distance reference">
       <h2>Set a camera reference</h2>
-      <p>Show one whole, front-facing block near the centre. Enter the measured distance from the camera lens to its front face.</p>
+      <p id="referenceHelp">Show one whole 35 × 35 × 35 cm cube. Enter the measured distance from the camera lens to the nearest cube surface. Hold at that distance during setup; your viewing angle may change afterwards.</p>
       <div class="reference-controls"><label for="referenceMetres">Measured distance (metres) <input id="referenceMetres" type="number" min="0.1" max="30" step="0.01" value="3.00" inputmode="decimal"></label><button id="calibrate" class="button" disabled>Set reference</button><button id="clearCalibration" class="button" disabled>Clear reference</button></div>
       <p id="calibrationState" role="status" aria-live="polite">Start the camera to set a reference. No distance is guessed before calibration.</p>
-      <small>Use equal-size blocks in the same orientation. Changing lens, zoom, camera orientation or resolution needs a new reference. Hidden edges and stacks can still cause errors.</small>
+      <small id="referenceCaveats">Use 35 cm cubes with visible, clear edges. Changing lens, zoom or stream resolution needs a new reference. Blurred, hidden or very small corners may prevent an estimate.</small>
     </section>
   </section>
-  <footer><p><span class="blue-dot">●</span> Blue box <span class="red-dot">●</span> Red box</p><p>Fast mode uses your measured reference and assumes equal-size blocks, similar orientation and unchanged camera settings. Verify it at several measured distances. Estimates describe depth toward the front face, not precision range.</p><p>Choose AI estimate for photos or uncalibrated scenes. That indoor model remains slow on some phones and can misestimate metres; it is limited to 20 metres.</p><p>Camera access needs HTTPS and permission. Photos, video and camera references stay on your device.</p><p>Optional AI depth uses <a href="https://github.com/DepthAnything/Depth-Anything-V2" target="_blank" rel="noreferrer">Depth Anything V2</a>; fast mode does not download or run it.</p><a href="https://github.com/speedy107/box-detector-compare" target="_blank" rel="noreferrer">Source code ↗</a></footer>
+  <footer><p><span class="blue-dot">●</span> Blue box <span class="red-dot">●</span> Red box</p><p>Moving-camera mode uses 35 cm cube geometry, clear colour outlines and a saved camera reference. It fits each frame independently and allows changing viewing angles. It reports estimated distance to the nearest cube surface.</p><p>Verify accuracy at several measured distances and viewpoints. Real-phone performance and accuracy are not guaranteed. Hidden or blurred corners, lens distortion and imperfect cubes can cause errors.</p><p>The legacy fixed-view method requires similar block angles. Optional AI depth is slower on some phones and can misestimate metres.</p><p>Camera access needs HTTPS and permission. Photos, video and camera references stay on your device.</p><p>Pose uses OpenCV; optional AI depth uses <a href="https://github.com/DepthAnything/Depth-Anything-V2" target="_blank" rel="noreferrer">Depth Anything V2</a>. Moving-camera mode does not run the AI depth model.</p><a href="https://github.com/speedy107/box-detector-compare" target="_blank" rel="noreferrer">Source code ↗</a></footer>
 </main>
 <video id="video" autoplay muted playsinline hidden></video>
 </body>

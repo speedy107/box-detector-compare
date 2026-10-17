@@ -1,0 +1,152 @@
+{
+  "passed": true,
+  "date": "2026-10-17",
+  "runtime": "Headless Chromium container; single-thread WASM; real YOLO and OpenCV cube pose",
+  "normal": {
+    "frames": 20,
+    "median_update_ms": 77.30000000074506,
+    "p95_update_ms": 126.5,
+    "maximum_update_ms": 140.10000000149012,
+    "maximum_pose_ms": 11.400000002235174
+  },
+  "chrome_cpu_slowdown_4x": {
+    "frames": 20,
+    "median_update_ms": 346.74999999813735,
+    "p95_update_ms": 559,
+    "maximum_update_ms": 742.1000000014901,
+    "maximum_pose_ms": 7.800000000745058
+  },
+  "viewpoints": [
+    {
+      "scene": "motion-0.jpg",
+      "camera_angles_degrees": [
+        15,
+        25,
+        0
+      ],
+      "synthetic_surface_metres": 2.999999999992049,
+      "estimated_metres": 3.0,
+      "relative_error": 2.6503244043851737e-12,
+      "update_ms": 71.59999999776483
+    },
+    {
+      "scene": "motion-1.jpg",
+      "camera_angles_degrees": [
+        -20,
+        55,
+        15
+      ],
+      "synthetic_surface_metres": 3.0000000000022116,
+      "estimated_metres": 3.0,
+      "relative_error": 7.371880883511039e-13,
+      "update_ms": 75.5
+    },
+    {
+      "scene": "motion-2.jpg",
+      "camera_angles_degrees": [
+        30,
+        70,
+        -25
+      ],
+      "synthetic_surface_metres": 3.0000000000033236,
+      "estimated_metres": 3.0,
+      "relative_error": 1.1078915562734437e-12,
+      "update_ms": 72.39999999850988
+    },
+    {
+      "scene": "motion-3.jpg",
+      "camera_angles_degrees": [
+        0,
+        45,
+        40
+      ],
+      "synthetic_surface_metres": 3.000000000000588,
+      "estimated_metres": 2.99,
+      "relative_error": 0.0033333333335285875,
+      "update_ms": 72.90000000223517
+    },
+    {
+      "scene": "motion-4.jpg",
+      "camera_angles_degrees": [
+        0,
+        0,
+        0
+      ],
+      "synthetic_surface_metres": 3.000000000004275,
+      "estimated_metres": 2.97,
+      "relative_error": 0.010000000001410658,
+      "update_ms": 73.69999999925494
+    },
+    {
+      "scene": "motion-5.jpg",
+      "camera_angles_degrees": [
+        10,
+        5,
+        0
+      ],
+      "synthetic_surface_metres": 1.4999999999964464,
+      "estimated_metres": 1.5,
+      "relative_error": 2.368993889945159e-12,
+      "update_ms": 85.70000000298023
+    },
+    {
+      "scene": "motion-6.jpg",
+      "camera_angles_degrees": [
+        -15,
+        75,
+        25
+      ],
+      "synthetic_surface_metres": 3.9999999999969202,
+      "estimated_metres": 4.01,
+      "relative_error": 0.0025000000007717738,
+      "update_ms": 73.90000000223517
+    },
+    {
+      "scene": "motion-7.jpg",
+      "camera_angles_degrees": [
+        40,
+        35,
+        -20
+      ],
+      "synthetic_surface_metres": 2.000000000000017,
+      "estimated_metres": 2.0,
+      "relative_error": 8.43769498715119e-15,
+      "update_ms": 95.40000000223517
+    },
+    {
+      "scene": "motion-8.jpg",
+      "camera_angles_degrees": [
+        20,
+        35,
+        -15
+      ],
+      "synthetic_surface_metres": 2.9999999999932405,
+      "estimated_metres": 2.97,
+      "relative_error": 0.009999999997769349,
+      "update_ms": 138.60000000149012
+    },
+    {
+      "scene": "motion-9.jpg",
+      "camera_angles_degrees": [
+        -20,
+        65,
+        25
+      ],
+      "synthetic_surface_metres": 2.499999999996038,
+      "estimated_metres": 2.49,
+      "relative_error": 0.0039999999984213774,
+      "update_ms": 80.39999999850988
+    }
+  ],
+  "checks": [
+    "moving-camera mode by default",
+    "one five-frame camera reference",
+    "changed yaw/pitch/roll without re-referencing",
+    "changed distance",
+    "no AI depth model requested",
+    "mobile layout",
+    "zoom change invalidates camera reference",
+    "clear reference"
+  ],
+  "limitations": "Rendered cubes and a simulated camera. Not measured on iQOO Neo 6 and not a physical accuracy validation. Clear full cube corners and accurate 35 cm dimensions are required."
+}
