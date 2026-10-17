@@ -24,6 +24,7 @@ with sync_playwright() as p:
     page.goto(args.url,wait_until='networkidle')
     page.wait_for_function("document.querySelector('#modelState').textContent==='Ready'",timeout=60000)
     assert page.locator('#depthEnabled').is_checked()
+    page.locator('#distanceMode').select_option('ai')
     for image,expected in [(args.blue,'1 blue · 0 red'),(args.red,'0 blue · 1 red')]:
         page.locator('#photoFile').set_input_files(image)
         page.wait_for_function("document.querySelector('#status').textContent.startsWith('Photo detection complete')",timeout=180000)
@@ -46,6 +47,7 @@ with sync_playwright() as p:
     failure.route('**/models/depth-anything-v2-metric-indoor-q8.onnx',lambda route:route.abort())
     other=failure.new_page();other.goto(args.url,wait_until='networkidle')
     other.wait_for_function("document.querySelector('#modelState').textContent==='Ready'",timeout=60000)
+    other.locator('#distanceMode').select_option('ai')
     other.locator('#photoFile').set_input_files(args.blue)
     other.wait_for_function("document.querySelector('#status').textContent.startsWith('Detection works, but distance is unavailable')",timeout=60000)
     assert other.locator('#counts').inner_text()=='1 blue · 0 red'
@@ -66,6 +68,7 @@ with sync_playwright() as p:
     integrity.route('**/models/depth-anything-v2-metric-indoor-q8.json',corrupt_checksum)
     tampered=integrity.new_page();tampered.goto(args.url,wait_until='networkidle')
     tampered.wait_for_function("document.querySelector('#modelState').textContent==='Ready'",timeout=60000)
+    tampered.locator('#distanceMode').select_option('ai')
     tampered.locator('#photoFile').set_input_files(args.blue)
     tampered.wait_for_function("document.querySelector('#status').textContent.includes('integrity check failed')",timeout=60000)
     assert tampered.locator('#counts').inner_text()=='1 blue · 0 red'
@@ -79,6 +82,7 @@ with sync_playwright() as p:
     camera=browser.new_context(permissions=['camera'])
     camera_page=camera.new_page();camera_page.goto(args.url,wait_until='networkidle')
     camera_page.wait_for_function("document.querySelector('#modelState').textContent==='Ready'",timeout=60000)
+    camera_page.locator('#distanceMode').select_option('ai')
     camera_page.locator('#start').click()
     camera_page.wait_for_function("document.querySelector('#status').textContent.startsWith('Live detection') && document.querySelector('#depthState').textContent==='Indoor depth ready'",timeout=180000)
     assert '≈' in camera_page.locator('#detectionList').inner_text()
@@ -90,6 +94,7 @@ with sync_playwright() as p:
     stopping=browser.new_context(permissions=['camera'])
     stopped=stopping.new_page();stopped.goto(args.url,wait_until='networkidle')
     stopped.wait_for_function("document.querySelector('#modelState').textContent==='Ready'",timeout=60000)
+    stopped.locator('#distanceMode').select_option('ai')
     # Hold the download until the worker is terminated by Stop.
     held_routes=[]
     stopping.route('**/models/depth-anything-v2-metric-indoor-q8.onnx',lambda route:held_routes.append(route))

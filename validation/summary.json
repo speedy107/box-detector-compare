@@ -1,8 +1,11 @@
 {
-  "date": "2026-10-13",
+  "date": "2026-10-17",
   "status": "passed",
-  "depth_export": "Official source commit and checkpoint checksum verified; FP32 vs PyTorch and Q8 vs FP32 comparisons passed on four images.",
-  "browser_checks": "Real bundled YOLO and metric depth; photo blue/red detection; negative background; save image; confidence; invalid photo recovery; mobile; depth toggle; failed model download and retry; checksum rejection and retry; simulated camera with depth; stop cancels held depth download; detection recovers after cancellation.",
-  "unit_checks": "RGB normalization, central median, aspect ratio mapping, sparse/invalid/saturated depth, unavailable labels; worker timeout, retry, completion cleanup, cancellation and message errors.",
-  "limitations": "Tests use composite images and simulated camera frames. Physical distance accuracy and phone-camera performance are unmeasured."
+  "default_method": "Calibrated inverse apparent size of equal-size blocks; five-frame measured camera reference.",
+  "fast_mode_browser_report": "validation/calibrated-browser.json",
+  "optional_ai_browser_report": "validation/optional-ai-browser.json",
+  "checks": "Reference geometry and invalid input guards; real YOLO camera detection; calibration and persistence; lens/zoom invalidation; no AI model download in fast mode; cancellation of slow AI; annotated image export; blue/red photos and negative background; invalid photo recovery; mobile layout; optional AI integrity, retry and camera lifecycle.",
+  "performance_scope": "20 normal frames and 20 frames under 4x Chromium CPU throttling on the cloud container. Actual iQOO Neo 6 timings are unmeasured.",
+  "accuracy_scope": "Known synthetic image projection changes and mathematical scale tests only. Requires independent measurements at multiple physical distances. Rotation, occlusion and wrong-size objects can still invalidate geometry.",
+  "depth_export": "Original verified AI model is unchanged and available as an optional slow method."
 }

@@ -1,0 +1,45 @@
+{
+  "passed": true,
+  "date": "2026-10-17",
+  "runtime": "Headless Chromium in cloud container; WASM, one CPU thread",
+  "normal": {
+    "frames": 20,
+    "median_update_ms": 69.69999999925494,
+    "p95_update_ms": 75.79999999701977,
+    "max_update_ms": 77.09999999776483,
+    "max_distance_ms": 0.19999999925494194
+  },
+  "cpu_throttled_4x": {
+    "frames": 20,
+    "median_update_ms": 344.19999999925494,
+    "p95_update_ms": 397.0999999977648,
+    "max_update_ms": 491.30000000074506,
+    "max_distance_ms": 0.5
+  },
+  "synthetic_projection_checks": [
+    {
+      "fixture": "blue-far.jpg",
+      "expected_from_projection_metres": 6,
+      "observed_metres": 6.04
+    },
+    {
+      "fixture": "blue-near.jpg",
+      "expected_from_projection_metres": 2,
+      "observed_metres": 1.99
+    }
+  ],
+  "checks": [
+    "real YOLO on simulated camera",
+    "no invented distance before calibration",
+    "five-frame reference",
+    "no depth model requested in fast mode",
+    "mobile layout",
+    "save annotated detection",
+    "zoom mismatch suppresses distance",
+    "reference survives reload with matching camera",
+    "photos cannot reuse camera calibration",
+    "cancel slow AI by switching modes",
+    "clear reference suppresses distance"
+  ],
+  "limitations": "Composite fixtures and simulated camera. These are container timings, not iQOO Neo 6 measurements. Geometry checks are not physical accuracy validation."
+}

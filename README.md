@@ -6,11 +6,23 @@ A standalone blue/red box detector powered by the supplied **best.onnx** model. 
 
 Choose a photo or start your camera. Photos and camera frames are processed entirely in the browser. The page shows boxes, class confidence, counts, and inference time; Save detection downloads the annotated image. The confidence slider defaults to 35%.
 
-## Indoor distance estimates
+## Fast calibrated distance (default)
+
+Fast mode replaces the second neural network with reference geometry for equal-size blocks. Start the camera, place one complete, front-facing block at a measured distance, enter that distance in metres, and press **Set reference**. Keep it steady for five frames. The reference applies to equal-size blue and red blocks and is saved only in this browser.
+
+Each block's normalized width and height are compared with that reference. Depth scales inversely with apparent size; the geometric mean of the two scale ratios reduces edge noise. This requires the same camera, resolution, zoom and orientation, and comparable block orientation. Camera-setting mismatches, clipped/low-confidence/tiny outlines, overlapping detections, and changed outline proportions suppress numeric distances. These checks cannot detect every occlusion, rotation, or wrong-size object. Photos cannot reuse a camera reference.
+
+**Update** reports elapsed time from capture through preprocessing, YOLO, distance calculation and annotation for camera frames. The new default does not fetch or run the depth model, and it keeps no inference queue. The optional AI mode remains available and can be cancelled by switching modes or disabling distance.
+
+Cloud Chromium testing sampled 20 frames normally and 20 with 4× CPU throttling. The final run measured a normal median of 70 ms (maximum 77 ms) and a throttled median of 344 ms (maximum 491 ms), with distance calculation below 1 ms. Synthetic projection checks returned 6.04 m for a 6 m projection and 1.99 m for a 2 m projection after a 3 m reference. These are container timings and synthetic geometry checks, not iQOO Neo 6 benchmarks or physical accuracy measurements. Check the displayed Update timing and measured distances on the actual phone before considering either requirement met.
+
+Validate real accuracy at several measured distances other than the calibration distance, for example calibrate at 3 m and check 1 m, 2 m and 4 m. A correct reading at the calibration point alone does not establish accuracy elsewhere. Keep blocks front-facing and near the image centre; measure to the front face from the camera lens.
+
+## Optional AI distance estimates
 
 The depth integration uses **Depth Anything V2 Metric Hypersim Small**, which predicts optical-axis depth to the visible surface in metres. This is the indoor metric checkpoint, not the relative-depth model. It is a learned estimate; validate it against measured distances using the camera and scenes where you will use it. It does not compute exact Euclidean range without camera intrinsics.
 
-When Estimate distance is enabled, depth and YOLO process the same frozen frame. The per-block estimate is the median valid depth in the central 60% of its detected box, to reduce background contamination. Sparse, invalid, or saturated estimates display Depth unavailable. The indoor training cap is 20 metres. Depth runs in a separate browser worker and makes camera updates slower. Turn it off for detection-only use.
+When AI estimate is selected, depth and YOLO process the same frozen frame. The per-block estimate is the median valid depth in the central 60% of its detected box, to reduce background contamination. Sparse, invalid, or saturated estimates display Depth unavailable. The indoor training cap is 20 metres. Depth runs in a separate browser worker and makes camera updates slower. Turn it off for detection-only use.
 
 The browser model uses whole-frame square resizing to 518×518 and ImageNet RGB normalization, independently of YOLO's letterbox. The ONNX export uses per-channel int8 constant MatMul weights, retaining other operations in float32. Runtime model integrity is checked against the export metadata.
 
@@ -50,6 +62,8 @@ Use `--chromium /usr/bin/chromium` to run with an existing Chromium executable. 
 ```sh
 node tests/depth.test.mjs
 node tests/depth-worker.test.mjs
+node tests/calibration.test.mjs
+python tests/calibrated_browser_smoke.py --url http://127.0.0.1:8001/
 python tests/browser_smoke.py --chromium /usr/bin/chromium \
   --blue tests/fixtures/blue.jpg --red tests/fixtures/red.jpg \
   --negative tests/fixtures/negative.jpg

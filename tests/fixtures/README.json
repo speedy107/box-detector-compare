@@ -4,5 +4,9 @@
   "blue_cutout": "blue_clip_02_frame_0003.png",
   "red_cutout": "red_clip_04_frame_0003.png",
   "background": "classroom_chairs.png",
-  "known_measured_distances": false
+  "known_measured_distances": false,
+  "projection_fixtures": {
+    "blue-far.jpg": "Block resized from the reference 230x235 cutout to 115x118: approximately half apparent size, corresponding to twice depth in the synthetic projection check.",
+    "blue-near.jpg": "Block resized from the reference 230x235 cutout to 345x352: approximately 1.5x apparent size, corresponding to 2/3 depth in the synthetic projection check."
+  }
 }
