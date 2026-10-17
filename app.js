@@ -1,7 +1,7 @@
 import {INPUT_SIZE,CLASSES,COLORS,letterbox,rgbaToTensor,decode} from './detector.js';
 import {DEPTH_SIZE,depthTensor,medianBlockDepth,distanceLabel,createDepthEstimator} from './depth.js?v=metric2';
 import {REFERENCE_SAMPLES,cameraProfile,sameCamera,referenceSample,createCalibration,restoreCalibration,calibratedDistance} from './calibration.js?v=1';
-import {restorePoseReference,createPoseEstimator} from './pose.js?v=1';
+import {restorePoseReference,createPoseEstimator,samePoseCamera} from './pose.js?v=2';
 
 const $=id=>document.getElementById(id);
 const frame=document.createElement('canvas'),prep=document.createElement('canvas');
@@ -116,13 +116,13 @@ function collectReference(result){
 function collectPoseReference(reference){
   if(!calibrationRequest||!reference)return;
   const request=calibrationRequest;
-  if(request.profile&&!sameCamera(request.profile,frameProfile))throw new Error('Camera settings changed during setup. Try again.');
-  request.profile={...frameProfile};request.samples.push(reference.focalNormalized);
+  if(request.profile&&!samePoseCamera(request.profile,frameProfile))throw new Error('Camera settings changed during setup. Try again.');
+  request.profile={...frameProfile};request.samples.push(reference.focalNormalized*frame.width/Math.max(frame.width,frame.height));
   $('calibrationState').textContent=`Camera reference frame ${request.samples.length}/${REFERENCE_SAMPLES} · hold at the measured distance`;
   if(request.samples.length===REFERENCE_SAMPLES){
     const values=[...request.samples].sort((a,b)=>a-b),focalNormalized=values[Math.floor(values.length/2)];
     if(values.some(v=>Math.abs(v/focalNormalized-1)>.08))throw new Error('The camera reference was unstable. Hold at the measured distance and retry.');
-    poseReference=restorePoseReference({version:1,sideMetres:.35,focalNormalized,referenceMetres:request.metres,profile:request.profile});
+    poseReference=restorePoseReference({version:1,focalBasis:'long-edge',sideMetres:.35,focalNormalized,referenceMetres:request.metres,profile:request.profile});
     if(!poseReference)throw new Error('This camera cannot safely save a reference.');
     calibrationRequest=null;try{localStorage.setItem(poseReferenceKey,JSON.stringify(poseReference));}catch{}
     updateMethod();controls();
@@ -144,13 +144,13 @@ async function detect(){
     const result={boxes:decode(outputs[model.outputNames[0]],geometry,confidence,.45),elapsed,startedAt,frameNumber,mode,depthElapsed:null,depthEnabled:enabled,depthError:null};
     result.boxes.forEach(box=>box.distance=null);
     if(enabled&&mode==='pose'){
-      const matching=frameProfile&&poseReference&&sameCamera(poseReference.profile,frameProfile);
+      const matching=frameProfile&&poseReference&&samePoseCamera(poseReference.profile,frameProfile);
       result.boxes.forEach(box=>box.distanceReason=!frameProfile?'Use the calibrated camera':poseReference&&!matching?'Recalibrate camera':'Set camera reference');
       if(frameProfile&&(matching||calibrationRequest)&&result.boxes.length){
         poseBusy=true;
         try{
           const pixels=frame.getContext('2d',{willReadFrequently:true}).getImageData(0,0,frame.width,frame.height).data;
-          const options=calibrationRequest?{referenceMetres:calibrationRequest.metres}:{focalNormalized:poseReference.focalNormalized};
+          const options=calibrationRequest?{referenceMetres:calibrationRequest.metres}:{focalNormalized:poseReference.focalNormalized*Math.max(frame.width,frame.height)/frame.width};
           const pose=await poseEstimator.infer(pixels,frame.width,frame.height,result.boxes,options);
           if(token!==epoch||revision!==settingsRevision)return;
           if(calibrationRequest){
@@ -160,7 +160,7 @@ async function detect(){
           result.depthElapsed=pose.elapsed;
           result.boxes.forEach((box,i)=>{
             box.posePoints=pose.boxes[i]?.points;
-            if(!calibrationRequest&&poseReference&&sameCamera(poseReference.profile,frameProfile)){box.distance=pose.boxes[i]?.metres??null;box.distanceReason=pose.boxes[i]?.reason||'Cube corners unclear';}
+            if(!calibrationRequest&&poseReference&&samePoseCamera(poseReference.profile,frameProfile)){box.distance=pose.boxes[i]?.metres??null;box.distanceReason=pose.boxes[i]?.reason||'Cube corners unclear';}
           });
         }catch(error){
           if(token!==epoch||revision!==settingsRevision)return;
@@ -168,7 +168,7 @@ async function detect(){
           result.boxes.forEach(box=>box.distanceReason=error.message);
         }finally{poseBusy=false;}
       }else if(calibrationRequest&&result.boxes.length===0){calibrationRequest=null;$('calibrationState').textContent='Show one complete cube, then set the camera reference again.';controls();}
-      const currentMatches=frameProfile&&poseReference&&sameCamera(poseReference.profile,frameProfile);
+      const currentMatches=frameProfile&&poseReference&&samePoseCamera(poseReference.profile,frameProfile);
       $('depthState').textContent=!frameProfile?'Use the calibrated camera':poseReference&&!currentMatches&&!calibrationRequest?'Recalibrate camera':poseReference?'Cube pose ready':'Reference needed';
     }
     if(enabled&&mode==='calibrated'){

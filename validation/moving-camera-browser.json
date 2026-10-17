@@ -4,17 +4,17 @@
   "runtime": "Headless Chromium container; single-thread WASM; real YOLO and OpenCV cube pose",
   "normal": {
     "frames": 20,
-    "median_update_ms": 77.30000000074506,
-    "p95_update_ms": 126.5,
-    "maximum_update_ms": 140.10000000149012,
-    "maximum_pose_ms": 11.400000002235174
+    "median_update_ms": 73.90000000037253,
+    "p95_update_ms": 79.80000000074506,
+    "maximum_update_ms": 80.89999999850988,
+    "maximum_pose_ms": 3.899999998509884
   },
   "chrome_cpu_slowdown_4x": {
     "frames": 20,
-    "median_update_ms": 346.74999999813735,
-    "p95_update_ms": 559,
-    "maximum_update_ms": 742.1000000014901,
-    "maximum_pose_ms": 7.800000000745058
+    "median_update_ms": 342.65000000037253,
+    "p95_update_ms": 563.6999999992549,
+    "maximum_update_ms": 803.7000000029802,
+    "maximum_pose_ms": 5.200000002980232
   },
   "viewpoints": [
     {
@@ -27,7 +27,7 @@
       "synthetic_surface_metres": 2.999999999992049,
       "estimated_metres": 3.0,
       "relative_error": 2.6503244043851737e-12,
-      "update_ms": 71.59999999776483
+      "update_ms": 74.60000000149012
     },
     {
       "scene": "motion-1.jpg",
@@ -39,7 +39,7 @@
       "synthetic_surface_metres": 3.0000000000022116,
       "estimated_metres": 3.0,
       "relative_error": 7.371880883511039e-13,
-      "update_ms": 75.5
+      "update_ms": 72.80000000074506
     },
     {
       "scene": "motion-2.jpg",
@@ -51,7 +51,7 @@
       "synthetic_surface_metres": 3.0000000000033236,
       "estimated_metres": 3.0,
       "relative_error": 1.1078915562734437e-12,
-      "update_ms": 72.39999999850988
+      "update_ms": 72.19999999925494
     },
     {
       "scene": "motion-3.jpg",
@@ -63,7 +63,7 @@
       "synthetic_surface_metres": 3.000000000000588,
       "estimated_metres": 2.99,
       "relative_error": 0.0033333333335285875,
-      "update_ms": 72.90000000223517
+      "update_ms": 73.10000000149012
     },
     {
       "scene": "motion-4.jpg",
@@ -75,7 +75,7 @@
       "synthetic_surface_metres": 3.000000000004275,
       "estimated_metres": 2.97,
       "relative_error": 0.010000000001410658,
-      "update_ms": 73.69999999925494
+      "update_ms": 76.29999999701977
     },
     {
       "scene": "motion-5.jpg",
@@ -87,7 +87,7 @@
       "synthetic_surface_metres": 1.4999999999964464,
       "estimated_metres": 1.5,
       "relative_error": 2.368993889945159e-12,
-      "update_ms": 85.70000000298023
+      "update_ms": 72.89999999850988
     },
     {
       "scene": "motion-6.jpg",
@@ -99,7 +99,7 @@
       "synthetic_surface_metres": 3.9999999999969202,
       "estimated_metres": 4.01,
       "relative_error": 0.0025000000007717738,
-      "update_ms": 73.90000000223517
+      "update_ms": 77.30000000074506
     },
     {
       "scene": "motion-7.jpg",
@@ -111,7 +111,7 @@
       "synthetic_surface_metres": 2.000000000000017,
       "estimated_metres": 2.0,
       "relative_error": 8.43769498715119e-15,
-      "update_ms": 95.40000000223517
+      "update_ms": 74.10000000149012
     },
     {
       "scene": "motion-8.jpg",
@@ -123,7 +123,7 @@
       "synthetic_surface_metres": 2.9999999999932405,
       "estimated_metres": 2.97,
       "relative_error": 0.009999999997769349,
-      "update_ms": 138.60000000149012
+      "update_ms": 77.09999999776483
     },
     {
       "scene": "motion-9.jpg",
@@ -135,7 +135,12 @@
       "synthetic_surface_metres": 2.499999999996038,
       "estimated_metres": 2.49,
       "relative_error": 0.0039999999984213774,
-      "update_ms": 80.39999999850988
+      "update_ms": 82.30000000074506
+    },
+    {
+      "scene": "motion-1.jpg rotated 90 degrees to portrait",
+      "synthetic_surface_metres": 3,
+      "estimated_metres": 3.0
     }
   ],
   "checks": [
@@ -143,6 +148,7 @@
     "one five-frame camera reference",
     "changed yaw/pitch/roll without re-referencing",
     "changed distance",
+    "portrait/landscape rotation preserves intrinsics",
     "no AI depth model requested",
     "mobile layout",
     "zoom change invalidates camera reference",

@@ -32,14 +32,15 @@ with sync_playwright() as p:
     page.on('request',lambda request:requests.append(request.url))
     page.add_init_script("""navigator.mediaDevices.getUserMedia=async()=>{
       const canvas=document.createElement('canvas');canvas.width=640;canvas.height=480;
-      window.setScene=async name=>{
+      window.setScene=async(name,portrait=false)=>{
         const image=await createImageBitmap(await (await fetch(new URL('tests/fixtures/motion/'+name,location.href))).blob());
-        canvas.getContext('2d').drawImage(image,0,0);image.close();
+        canvas.width=portrait?480:640;canvas.height=portrait?640:480;
+        const ctx=canvas.getContext('2d');if(portrait){ctx.translate(480,0);ctx.rotate(Math.PI/2);}ctx.drawImage(image,0,0);image.close();
         const video=document.querySelector('#video');
         if(video.srcObject)await new Promise(resolve=>video.requestVideoFrameCallback(resolve));
       };
       await window.setScene('motion-0.jpg');const stream=canvas.captureStream(10),track=stream.getVideoTracks()[0];
-      track.getSettings=()=>({deviceId:'moving-camera-scene',width:640,height:480,zoom:1,facingMode:'environment'});
+      track.getSettings=()=>({deviceId:'moving-camera-scene',width:canvas.width,height:canvas.height,zoom:1,facingMode:'environment'});
       return stream;
     };""")
     page.goto(args.url,wait_until='networkidle')
@@ -65,6 +66,12 @@ with sync_playwright() as p:
         assert 'reference angle' not in text.lower()
         observations.append({'scene':scene['name'],'camera_angles_degrees':scene['angles'],'synthetic_surface_metres':scene['truth_metres'],
                              'estimated_metres':metres,'relative_error':error,'update_ms':float(page.locator('#timing').get_attribute('data-total-ms'))})
+    before=int(page.locator('#timing').get_attribute('data-frame-number'))
+    page.evaluate("()=>window.setScene('motion-1.jpg',true)")
+    page.wait_for_function("before=>Number(document.querySelector('#timing').dataset.frameNumber)>=before+2",arg=before,timeout=15000)
+    text=page.locator('#detectionList').inner_text();found=re.search(r'≈ ([0-9.]+) m',text)
+    assert found and abs(float(found.group(1))/3-1)<.1,('portrait rotation',text)
+    observations.append({'scene':'motion-1.jpg rotated 90 degrees to portrait','synthetic_surface_metres':3,'estimated_metres':float(found.group(1))})
     normal=sample_frames(page)
     cdp=context.new_cdp_session(page);cdp.send('Emulation.setCPUThrottlingRate',{'rate':4})
     slowed=sample_frames(page);cdp.send('Emulation.setCPUThrottlingRate',{'rate':1})
@@ -97,7 +104,7 @@ def summary(values):
 report={'passed':True,'date':'2026-10-17','runtime':'Headless Chromium container; single-thread WASM; real YOLO and OpenCV cube pose',
         'normal':summary(normal),'chrome_cpu_slowdown_4x':summary(slowed),'viewpoints':observations,
         'checks':['moving-camera mode by default','one five-frame camera reference','changed yaw/pitch/roll without re-referencing',
-                  'changed distance','no AI depth model requested','mobile layout','zoom change invalidates camera reference','clear reference'],
+                  'changed distance','portrait/landscape rotation preserves intrinsics','no AI depth model requested','mobile layout','zoom change invalidates camera reference','clear reference'],
         'limitations':'Rendered cubes and a simulated camera. Not measured on iQOO Neo 6 and not a physical accuracy validation. Clear full cube corners and accurate 35 cm dimensions are required.'}
 args.report.write_text(json.dumps(report,indent=2)+'\n')
 print(json.dumps(report,indent=2))

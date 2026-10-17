@@ -5,19 +5,19 @@
   "moving_camera_report": "validation/moving-camera-browser.json",
   "normal_cloud_timing": {
     "frames": 20,
-    "median_update_ms": 77.30000000074506,
-    "p95_update_ms": 126.5,
-    "maximum_update_ms": 140.10000000149012,
-    "maximum_pose_ms": 11.400000002235174
+    "median_update_ms": 73.90000000037253,
+    "p95_update_ms": 79.80000000074506,
+    "maximum_update_ms": 80.89999999850988,
+    "maximum_pose_ms": 3.899999998509884
   },
   "chrome_cpu_slowdown_4x": {
     "frames": 20,
-    "median_update_ms": 346.74999999813735,
-    "p95_update_ms": 559,
-    "maximum_update_ms": 742.1000000014901,
-    "maximum_pose_ms": 7.800000000745058
+    "median_update_ms": 342.65000000037253,
+    "p95_update_ms": 563.6999999992549,
+    "maximum_update_ms": 803.7000000029802,
+    "maximum_pose_ms": 5.200000002980232
   },
-  "checks": "Ten independently rendered blue/red cube views with changing yaw/pitch/roll and distance; real YOLO and colour segmentation; camera reference and invalidation; no fixed aspect/angle constraint in the default mode; no AI depth model requested; camera restart, clear reference and mobile layout. Legacy fixed-view, detector and optional AI regressions passed.",
+  "checks": "Ten independently rendered blue/red cube views with changing yaw/pitch/roll and distance; real YOLO and colour segmentation; camera reference and invalidation; no fixed aspect/angle constraint in the default mode; no AI depth model requested; camera restart, clear reference and mobile layout. Legacy fixed-view, detector and optional AI regressions passed. Portrait/landscape frame transposition preserves focal scale; actual camera/zoom/capture-format changes remain invalidated.",
   "performance_scope": "Cloud Chromium with a simulated camera. Timings on iQOO Neo 6 are unmeasured; cold OpenCV loading and initial setup are not steady-frame timings.",
   "accuracy_scope": "Analytically rendered cubes and mathematical pose tests only. Actual phone accuracy needs measurement at multiple distances and viewpoints. Assumes 35 cm cubes, square camera pixels, centred principal point and no distortion correction. Corners must be clear and complete.",
   "legacy_method": "The fixed-view size-ratio mode remains optional and retains its reference-angle constraint.",

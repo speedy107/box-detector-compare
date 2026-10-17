@@ -1,5 +1,9 @@
+export function samePoseCamera(a,b){
+  return Boolean(a&&b&&a.deviceId===b.deviceId&&a.facingMode===b.facingMode&&Math.abs(a.zoom-b.zoom)<.001&&
+    Math.min(a.width,a.height)===Math.min(b.width,b.height)&&Math.max(a.width,a.height)===Math.max(b.width,b.height));
+}
 export function restorePoseReference(value){
-  return value?.version===1&&value.sideMetres===.35&&Number.isFinite(value.focalNormalized)&&value.focalNormalized>=.25&&value.focalNormalized<=5&&
+  return value?.version===1&&value.focalBasis==='long-edge'&&value.sideMetres===.35&&Number.isFinite(value.focalNormalized)&&value.focalNormalized>=.2&&value.focalNormalized<=5&&
     Number.isFinite(value.referenceMetres)&&value.referenceMetres>=.3&&value.referenceMetres<=15&&
     value.profile&&typeof value.profile.deviceId==='string'&&value.profile.deviceId.length>0&&
     Number.isFinite(value.profile.width)&&value.profile.width>0&&Number.isFinite(value.profile.height)&&value.profile.height>0&&
