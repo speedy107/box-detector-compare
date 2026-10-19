@@ -1,0 +1,533 @@
+{
+  "date": "2026-10-19",
+  "environment": {
+    "browser": "Headless Chromium; single browser process per thread setting; local HTTP server with COOP/COEP headers",
+    "cpu_quota_cores": 2,
+    "reported_hardware_concurrency": 3,
+    "frames_per_setting": 10,
+    "workload": "Real supplied YOLO320 model and OpenCV cube pose; repeated rendered35cm cube image at known3m distance",
+    "warmup_includes": "Local model/runtime download, session creation, detector warmup and OpenCV initialization",
+    "phone_measured": false
+  },
+  "observations": [
+    "SharedArrayBuffer and crossOriginIsolated were available in the page and inference worker.",
+    "Actual Emscripten pthread worker targets confirmed2-thread and4-thread execution.",
+    "Two threads reduced median capture-plus-inference latency from77.91ms to52.14ms in this environment.",
+    "Four threads oversubscribed the2-core CPU quota and were slower at143.44ms median.",
+    "The input was a decoded still image, not a physical moving camera or real iQOO Neo6.",
+    "This establishes a cloud-browser optimization result, not a device-speed or physical-accuracy guarantee."
+  ],
+  "runs": [
+    {
+      "ready": {
+        "ready": true,
+        "backend": "wasm",
+        "threads": 1,
+        "crossOriginIsolated": true,
+        "sharedArrayBuffer": "function",
+        "hardwareConcurrency": 3,
+        "inputSize": 320,
+        "offscreenCanvas": true
+      },
+      "warmupMs": 1525.2799999993294,
+      "pageHardwareConcurrency": 3,
+      "pageCrossOriginIsolated": true,
+      "webGPU": true,
+      "frames": [
+        {
+          "captureAndInferMs": 105.28500000014901,
+          "clientInferMs": 93.2949999999255,
+          "detectionMs": 78.13499999977648,
+          "modelMs": 74.80499999970198,
+          "poseMs": 12.925000000745058,
+          "workerMs": 91.08499999903142,
+          "metres": 3.0001463284672063
+        },
+        {
+          "captureAndInferMs": 84.26999999955297,
+          "clientInferMs": 78.92499999888241,
+          "detectionMs": 69.3600000012666,
+          "modelMs": 67.81000000052154,
+          "poseMs": 5.889999998733401,
+          "workerMs": 75.25499999895692,
+          "metres": 3.0001463284672063
+        },
+        {
+          "captureAndInferMs": 77.26999999955297,
+          "clientInferMs": 74.39000000059605,
+          "detectionMs": 67.5800000000745,
+          "modelMs": 66.10999999940395,
+          "poseMs": 6.255000000819564,
+          "workerMs": 73.84000000171363,
+          "metres": 3.0001463284672063
+        },
+        {
+          "captureAndInferMs": 77.84500000067055,
+          "clientInferMs": 73.05499999970198,
+          "detectionMs": 66.2949999999255,
+          "modelMs": 64.89500000141561,
+          "poseMs": 6.295000001788139,
+          "workerMs": 72.60000000149012,
+          "metres": 3.0001463284672063
+        },
+        {
+          "captureAndInferMs": 79.18999999947846,
+          "clientInferMs": 74.5449999999255,
+          "detectionMs": 65.07000000029802,
+          "modelMs": 63.5149999987334,
+          "poseMs": 6.724999999627471,
+          "workerMs": 71.80000000074506,
+          "metres": 3.0001463284672063
+        },
+        {
+          "captureAndInferMs": 77.76500000059605,
+          "clientInferMs": 71.02500000037253,
+          "detectionMs": 65.73000000044703,
+          "modelMs": 64.2649999987334,
+          "poseMs": 4.889999998733401,
+          "workerMs": 70.62999999895692,
+          "metres": 3.0001463284672063
+        },
+        {
+          "captureAndInferMs": 85.33499999903142,
+          "clientInferMs": 81.72499999962747,
+          "detectionMs": 65.5800000000745,
+          "modelMs": 64.08999999985099,
+          "poseMs": 5.580000000074506,
+          "workerMs": 71.17500000074506,
+          "metres": 3.0001463284672063
+        },
+        {
+          "captureAndInferMs": 72.96499999985099,
+          "clientInferMs": 69.84999999962747,
+          "detectionMs": 64.65499999932945,
+          "modelMs": 63.22499999962747,
+          "poseMs": 4.714999999850988,
+          "workerMs": 69.38000000081956,
+          "metres": 3.0001463284672063
+        },
+        {
+          "captureAndInferMs": 74.30499999970198,
+          "clientInferMs": 71.3300000000745,
+          "detectionMs": 65.95999999903142,
+          "modelMs": 64.58999999985099,
+          "poseMs": 5.005000000819564,
+          "workerMs": 70.97000000067055,
+          "metres": 3.0001463284672063
+        },
+        {
+          "captureAndInferMs": 77.97000000067055,
+          "clientInferMs": 74.875,
+          "detectionMs": 68.77999999932945,
+          "modelMs": 67.30000000074506,
+          "poseMs": 5.685000000521541,
+          "workerMs": 74.47499999962747,
+          "metres": 3.0001463284672063
+        }
+      ],
+      "requestedThreads": 1,
+      "workerTargets": [
+        {
+          "type": "worker",
+          "url": "http://127.0.0.1:8004/pro/inference-worker.js?v=1",
+          "title": "http://127.0.0.1:8004/pro/inference-worker.js?v=1"
+        }
+      ],
+      "createdWorkerTargets": [
+        {
+          "type": "worker",
+          "url": "",
+          "title": ""
+        }
+      ],
+      "errors": [],
+      "console": [],
+      "summary": {
+        "captureAndInferMs": {
+          "median": 77.90750000067055,
+          "min": 72.96499999985099,
+          "max": 105.28500000014901
+        },
+        "clientInferMs": {
+          "median": 74.46750000026077,
+          "min": 69.84999999962747,
+          "max": 93.2949999999255
+        },
+        "detectionMs": {
+          "median": 66.12749999947846,
+          "min": 64.65499999932945,
+          "max": 78.13499999977648
+        },
+        "modelMs": {
+          "median": 64.7425000006333,
+          "min": 63.22499999962747,
+          "max": 74.80499999970198
+        },
+        "poseMs": {
+          "median": 5.787499999627471,
+          "min": 4.714999999850988,
+          "max": 12.925000000745058
+        },
+        "workerMs": {
+          "median": 72.20000000111759,
+          "min": 69.38000000081956,
+          "max": 91.08499999903142
+        }
+      }
+    },
+    {
+      "ready": {
+        "ready": true,
+        "backend": "wasm",
+        "threads": 2,
+        "crossOriginIsolated": true,
+        "sharedArrayBuffer": "function",
+        "hardwareConcurrency": 3,
+        "inputSize": 320,
+        "offscreenCanvas": true
+      },
+      "warmupMs": 1301.714999999851,
+      "pageHardwareConcurrency": 3,
+      "pageCrossOriginIsolated": true,
+      "webGPU": true,
+      "frames": [
+        {
+          "captureAndInferMs": 82.82000000029802,
+          "clientInferMs": 79.72000000067055,
+          "detectionMs": 65.66000000014901,
+          "modelMs": 62.25,
+          "poseMs": 13.60499999858439,
+          "workerMs": 79.29999999888241,
+          "metres": 3.0001463284672063
+        },
+        {
+          "captureAndInferMs": 52.330000000074506,
+          "clientInferMs": 47.355000000447035,
+          "detectionMs": 40.34500000067055,
+          "modelMs": 38.56000000052154,
+          "poseMs": 6.594999998807907,
+          "workerMs": 46.94999999925494,
+          "metres": 3.0001463284672063
+        },
+        {
+          "captureAndInferMs": 57.19500000029802,
+          "clientInferMs": 54.47499999962747,
+          "detectionMs": 47.96499999985099,
+          "modelMs": 46.480000000447035,
+          "poseMs": 6.064999999478459,
+          "workerMs": 54.044999999925494,
+          "metres": 3.0001463284672063
+        },
+        {
+          "captureAndInferMs": 51.330000000074506,
+          "clientInferMs": 48.665000000968575,
+          "detectionMs": 39.519999999552965,
+          "modelMs": 38.125,
+          "poseMs": 8.75,
+          "workerMs": 48.28500000014901,
+          "metres": 3.0001463284672063
+        },
+        {
+          "captureAndInferMs": 48.72000000067055,
+          "clientInferMs": 45.97499999962747,
+          "detectionMs": 38.380000000819564,
+          "modelMs": 37.02999999932945,
+          "poseMs": 7.1400000005960464,
+          "workerMs": 45.53500000014901,
+          "metres": 3.0001463284672063
+        },
+        {
+          "captureAndInferMs": 55.35999999940395,
+          "clientInferMs": 52.60999999940395,
+          "detectionMs": 45.19999999925494,
+          "modelMs": 43.85999999940395,
+          "poseMs": 6.985000001266599,
+          "workerMs": 52.22000000067055,
+          "metres": 3.0001463284672063
+        },
+        {
+          "captureAndInferMs": 51.95000000111759,
+          "clientInferMs": 48.06499999947846,
+          "detectionMs": 40.82499999925494,
+          "modelMs": 39.25,
+          "poseMs": 5.349999999627471,
+          "workerMs": 46.18999999947846,
+          "metres": 3.0001463284672063
+        },
+        {
+          "captureAndInferMs": 47.66499999910593,
+          "clientInferMs": 44.84499999880791,
+          "detectionMs": 37.49000000022352,
+          "modelMs": 36.130000000819564,
+          "poseMs": 7,
+          "workerMs": 44.494999999180436,
+          "metres": 3.0001463284672063
+        },
+        {
+          "captureAndInferMs": 49.51000000163913,
+          "clientInferMs": 46.669999999925494,
+          "detectionMs": 38.59000000171363,
+          "modelMs": 37.22000000067055,
+          "poseMs": 7.679999999701977,
+          "workerMs": 46.28000000119209,
+          "metres": 3.0001463284672063
+        },
+        {
+          "captureAndInferMs": 73.30499999970198,
+          "clientInferMs": 69.35500000044703,
+          "detectionMs": 62.05000000074506,
+          "modelMs": 59.665000000968575,
+          "poseMs": 6.800000000745058,
+          "workerMs": 68.85000000149012,
+          "metres": 3.0001463284672063
+        }
+      ],
+      "requestedThreads": 2,
+      "workerTargets": [
+        {
+          "type": "worker",
+          "url": "http://127.0.0.1:8004/pro/inference-worker.js?v=1",
+          "title": "http://127.0.0.1:8004/pro/inference-worker.js?v=1"
+        },
+        {
+          "type": "worker",
+          "url": "http://127.0.0.1:8004/vendor/ort-wasm-simd-threaded.mjs",
+          "title": "em-pthread"
+        }
+      ],
+      "createdWorkerTargets": [
+        {
+          "type": "worker",
+          "url": "",
+          "title": ""
+        },
+        {
+          "type": "worker",
+          "url": "",
+          "title": ""
+        }
+      ],
+      "errors": [],
+      "console": [],
+      "summary": {
+        "captureAndInferMs": {
+          "median": 52.14000000059605,
+          "min": 47.66499999910593,
+          "max": 82.82000000029802
+        },
+        "clientInferMs": {
+          "median": 48.36500000022352,
+          "min": 44.84499999880791,
+          "max": 79.72000000067055
+        },
+        "detectionMs": {
+          "median": 40.58499999996275,
+          "min": 37.49000000022352,
+          "max": 65.66000000014901
+        },
+        "modelMs": {
+          "median": 38.90500000026077,
+          "min": 36.130000000819564,
+          "max": 62.25
+        },
+        "poseMs": {
+          "median": 6.992500000633299,
+          "min": 5.349999999627471,
+          "max": 13.60499999858439
+        },
+        "workerMs": {
+          "median": 47.61749999970198,
+          "min": 44.494999999180436,
+          "max": 79.29999999888241
+        }
+      }
+    },
+    {
+      "ready": {
+        "ready": true,
+        "backend": "wasm",
+        "threads": 4,
+        "crossOriginIsolated": true,
+        "sharedArrayBuffer": "function",
+        "hardwareConcurrency": 3,
+        "inputSize": 320,
+        "offscreenCanvas": true
+      },
+      "warmupMs": 1431.265000000596,
+      "pageHardwareConcurrency": 3,
+      "pageCrossOriginIsolated": true,
+      "webGPU": true,
+      "frames": [
+        {
+          "captureAndInferMs": 137.10999999940395,
+          "clientInferMs": 134.125,
+          "detectionMs": 118.4550000000745,
+          "modelMs": 116.5949999988079,
+          "poseMs": 14.330000000074506,
+          "workerMs": 132.8099999986589,
+          "metres": 3.0001463284672063
+        },
+        {
+          "captureAndInferMs": 138.33500000089407,
+          "clientInferMs": 134.8300000000745,
+          "detectionMs": 125.55000000074506,
+          "modelMs": 121.8150000013411,
+          "poseMs": 8.81000000052154,
+          "workerMs": 134.37000000104308,
+          "metres": 3.0001463284672063
+        },
+        {
+          "captureAndInferMs": 151.1699999999255,
+          "clientInferMs": 147.81499999947846,
+          "detectionMs": 104.63499999977648,
+          "modelMs": 101.4199999999255,
+          "poseMs": 42.59999999962747,
+          "workerMs": 147.24000000022352,
+          "metres": 3.0001463284672063
+        },
+        {
+          "captureAndInferMs": 117.70000000111759,
+          "clientInferMs": 114.76000000163913,
+          "detectionMs": 106.24500000104308,
+          "modelMs": 103.9850000012666,
+          "poseMs": 8.10499999858439,
+          "workerMs": 114.36500000022352,
+          "metres": 3.0001463284672063
+        },
+        {
+          "captureAndInferMs": 113.85999999940395,
+          "clientInferMs": 110.82499999925494,
+          "detectionMs": 102.13499999977648,
+          "modelMs": 99.36999999918044,
+          "poseMs": 8.220000000670552,
+          "workerMs": 110.38000000081956,
+          "metres": 3.0001463284672063
+        },
+        {
+          "captureAndInferMs": 161.5750000011176,
+          "clientInferMs": 157.59999999962747,
+          "detectionMs": 113.9199999999255,
+          "modelMs": 110.80000000074506,
+          "poseMs": 7.505000000819564,
+          "workerMs": 121.42999999970198,
+          "metres": 3.0001463284672063
+        },
+        {
+          "captureAndInferMs": 148.5499999988824,
+          "clientInferMs": 141.57499999925494,
+          "detectionMs": 125.26500000059605,
+          "modelMs": 122.14499999955297,
+          "poseMs": 15.870000001043081,
+          "workerMs": 141.14999999850988,
+          "metres": 3.0001463284672063
+        },
+        {
+          "captureAndInferMs": 182.34500000067055,
+          "clientInferMs": 175.20999999903142,
+          "detectionMs": 156.09999999962747,
+          "modelMs": 154.214999999851,
+          "poseMs": 13.025000000372529,
+          "workerMs": 169.1399999987334,
+          "metres": 3.0001463284672063
+        },
+        {
+          "captureAndInferMs": 169,
+          "clientInferMs": 165.57000000029802,
+          "detectionMs": 111.875,
+          "modelMs": 110.05000000074506,
+          "poseMs": 16.990000000223517,
+          "workerMs": 128.875,
+          "metres": 3.0001463284672063
+        },
+        {
+          "captureAndInferMs": 130.61500000022352,
+          "clientInferMs": 124.60000000149012,
+          "detectionMs": 108.28999999910593,
+          "modelMs": 106.82000000029802,
+          "poseMs": 15.995000001043081,
+          "workerMs": 124.29000000096858,
+          "metres": 3.0001463284672063
+        }
+      ],
+      "requestedThreads": 4,
+      "workerTargets": [
+        {
+          "type": "worker",
+          "url": "http://127.0.0.1:8004/pro/inference-worker.js?v=1",
+          "title": "http://127.0.0.1:8004/pro/inference-worker.js?v=1"
+        },
+        {
+          "type": "worker",
+          "url": "http://127.0.0.1:8004/vendor/ort-wasm-simd-threaded.mjs",
+          "title": "em-pthread"
+        },
+        {
+          "type": "worker",
+          "url": "http://127.0.0.1:8004/vendor/ort-wasm-simd-threaded.mjs",
+          "title": "em-pthread"
+        },
+        {
+          "type": "worker",
+          "url": "http://127.0.0.1:8004/vendor/ort-wasm-simd-threaded.mjs",
+          "title": "em-pthread"
+        }
+      ],
+      "createdWorkerTargets": [
+        {
+          "type": "worker",
+          "url": "",
+          "title": ""
+        },
+        {
+          "type": "worker",
+          "url": "",
+          "title": ""
+        },
+        {
+          "type": "worker",
+          "url": "",
+          "title": ""
+        },
+        {
+          "type": "worker",
+          "url": "",
+          "title": ""
+        }
+      ],
+      "errors": [],
+      "console": [],
+      "summary": {
+        "captureAndInferMs": {
+          "median": 143.44249999988824,
+          "min": 113.85999999940395,
+          "max": 182.34500000067055
+        },
+        "clientInferMs": {
+          "median": 138.20249999966472,
+          "min": 110.82499999925494,
+          "max": 175.20999999903142
+        },
+        "detectionMs": {
+          "median": 112.89749999996275,
+          "min": 102.13499999977648,
+          "max": 156.09999999962747
+        },
+        "modelMs": {
+          "median": 110.42500000074506,
+          "min": 99.36999999918044,
+          "max": 154.214999999851
+        },
+        "poseMs": {
+          "median": 13.677500000223517,
+          "min": 7.505000000819564,
+          "max": 42.59999999962747
+        },
+        "workerMs": {
+          "median": 130.84249999932945,
+          "min": 110.38000000081956,
+          "max": 169.1399999987334
+        }
+      }
+    }
+  ]
+}

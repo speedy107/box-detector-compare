@@ -1,0 +1,391 @@
+{
+  "passed": true,
+  "date": "2026-10-19T06:53:07.236505+00:00",
+  "runtime": "Headless Chromium container; real browser YOLO and OpenCV workers; synthetic 30 fps camera",
+  "runtime_configuration": {
+    "cross_origin_isolated": true,
+    "threads": 2,
+    "backend": "wasm",
+    "service_worker_script": "http://127.0.0.1:8003/pro/isolation-sw.js?v=1"
+  },
+  "timing": {
+    "capture_to_result_ms": {
+      "samples": 20,
+      "median": 57.15,
+      "p95": 61.35,
+      "maximum": 72.8
+    },
+    "result_interval_ms": {
+      "samples": 19,
+      "median": 57.34,
+      "p95": 72.55,
+      "maximum": 72.55
+    },
+    "pose_ms": {
+      "samples": 20,
+      "median": 4.58,
+      "p95": 5.33,
+      "maximum": 7.21
+    },
+    "main_thread_animation_gap_ms": {
+      "samples": 63,
+      "median": 16.66,
+      "p95": 16.67,
+      "maximum": 16.67
+    },
+    "raw": {
+      "frames": [
+        {
+          "frame": 54,
+          "update_ms": 58.294999999925494,
+          "pose_ms": 4.4650000017136335,
+          "result_interval_ms": 31.574999999254942,
+          "app_reported_interval_ms": 58.36500000022352
+        },
+        {
+          "frame": 55,
+          "update_ms": 60.45000000111759,
+          "pose_ms": 4.429999999701977,
+          "result_interval_ms": 60.28999999910593,
+          "app_reported_interval_ms": 60.46499999985099
+        },
+        {
+          "frame": 56,
+          "update_ms": 52.38499999977648,
+          "pose_ms": 4.774999998509884,
+          "result_interval_ms": 52.455000000074506,
+          "app_reported_interval_ms": 52.50499999895692
+        },
+        {
+          "frame": 57,
+          "update_ms": 56.97000000067055,
+          "pose_ms": 4.800000000745058,
+          "result_interval_ms": 57.33999999985099,
+          "app_reported_interval_ms": 57.044999999925494
+        },
+        {
+          "frame": 58,
+          "update_ms": 48.419999999925494,
+          "pose_ms": 5.3349999990314245,
+          "result_interval_ms": 48.4850000012666,
+          "app_reported_interval_ms": 48.05499999970198
+        },
+        {
+          "frame": 59,
+          "update_ms": 58.30499999970198,
+          "pose_ms": 4.544999999925494,
+          "result_interval_ms": 58.06000000052154,
+          "app_reported_interval_ms": 58.815000001341105
+        },
+        {
+          "frame": 60,
+          "update_ms": 46.30499999970198,
+          "pose_ms": 4.535000000149012,
+          "result_interval_ms": 46.769999999552965,
+          "app_reported_interval_ms": 46.37999999895692
+        },
+        {
+          "frame": 61,
+          "update_ms": 57.330000000074506,
+          "pose_ms": 4.759999999776483,
+          "result_interval_ms": 57.03500000014901,
+          "app_reported_interval_ms": 57.33999999985099
+        },
+        {
+          "frame": 62,
+          "update_ms": 45.730000000447035,
+          "pose_ms": 4.5400000009685755,
+          "result_interval_ms": 45.709999999031425,
+          "app_reported_interval_ms": 45.790000000968575
+        },
+        {
+          "frame": 63,
+          "update_ms": 61.350000001490116,
+          "pose_ms": 4.610000001266599,
+          "result_interval_ms": 61.665000000968575,
+          "app_reported_interval_ms": 61.434999998658895
+        },
+        {
+          "frame": 64,
+          "update_ms": 48.84500000067055,
+          "pose_ms": 4.615000000223517,
+          "result_interval_ms": 48.97499999962747,
+          "app_reported_interval_ms": 48.69500000029802
+        },
+        {
+          "frame": 65,
+          "update_ms": 72.79500000178814,
+          "pose_ms": 7.2099999990314245,
+          "result_interval_ms": 72.55499999970198,
+          "app_reported_interval_ms": 73.02000000141561
+        },
+        {
+          "frame": 66,
+          "update_ms": 61.00999999977648,
+          "pose_ms": 4.380000000819564,
+          "result_interval_ms": 61.27999999932945,
+          "app_reported_interval_ms": 61.06999999843538
+        },
+        {
+          "frame": 67,
+          "update_ms": 47.144999999552965,
+          "pose_ms": 4.78999999910593,
+          "result_interval_ms": 47.544999999925494,
+          "app_reported_interval_ms": 47.18500000052154
+        },
+        {
+          "frame": 68,
+          "update_ms": 60.44999999925494,
+          "pose_ms": 4.785000000149012,
+          "result_interval_ms": 60.190000001341105,
+          "app_reported_interval_ms": 60.455000000074506
+        },
+        {
+          "frame": 69,
+          "update_ms": 47.690000001341105,
+          "pose_ms": 4.425000000745058,
+          "result_interval_ms": 47.955000000074506,
+          "app_reported_interval_ms": 47.88499999977648
+        },
+        {
+          "frame": 70,
+          "update_ms": 60.28999999910593,
+          "pose_ms": 4.505000000819564,
+          "result_interval_ms": 60.32499999925494,
+          "app_reported_interval_ms": 60.30499999970198
+        },
+        {
+          "frame": 71,
+          "update_ms": 46.18500000052154,
+          "pose_ms": 4.5150000005960464,
+          "result_interval_ms": 45.99000000022352,
+          "app_reported_interval_ms": 46.294999999925494
+        },
+        {
+          "frame": 72,
+          "update_ms": 57.705000000074506,
+          "pose_ms": 4.474999999627471,
+          "result_interval_ms": 58.15000000037253,
+          "app_reported_interval_ms": 57.42500000074506
+        },
+        {
+          "frame": 73,
+          "update_ms": 47.13499999977648,
+          "pose_ms": 4.625,
+          "result_interval_ms": 60.105000000447035,
+          "app_reported_interval_ms": 47.56499999947846
+        }
+      ],
+      "animation_gaps_ms": [
+        16.659999999999854,
+        16.670000000000073,
+        16.664999999999964,
+        16.670000000000073,
+        16.664999999999964,
+        16.664999999999964,
+        16.664999999999964,
+        16.665000000000873,
+        16.669999999999163,
+        16.660000000000764,
+        16.670000000000073,
+        16.664999999999964,
+        16.664999999999964,
+        16.664999999999964,
+        16.664999999999964,
+        16.670000000000073,
+        16.664999999999964,
+        16.664999999999964,
+        16.664999999999964,
+        16.670000000000073,
+        16.664999999999964,
+        16.664999999999964,
+        16.664999999999964,
+        16.664999999999964,
+        16.664999999999964,
+        16.670000000000073,
+        16.664999999999964,
+        16.670000000000073,
+        16.659999999999854,
+        16.670000000000073,
+        16.664999999999964,
+        16.664999999999964,
+        16.664999999999964,
+        16.664999999999964,
+        16.664999999999964,
+        16.664999999999964,
+        16.670000000000073,
+        16.664999999999964,
+        16.664999999999964,
+        16.670000000000073,
+        16.659999999999854,
+        16.670000000000073,
+        16.664999999999964,
+        16.664999999999964,
+        16.670000000000073,
+        16.664999999999964,
+        16.664999999999964,
+        16.664999999999964,
+        16.664999999999964,
+        16.664999999999964,
+        16.664999999999964,
+        16.670000000000073,
+        16.670000000000073,
+        16.659999999999854,
+        16.670000000000073,
+        16.664999999999964,
+        16.664999999999964,
+        16.664999999999964,
+        16.670000000000073,
+        16.659999999999854,
+        16.670000000000073,
+        16.664999999999964,
+        16.664999999999964
+      ]
+    }
+  },
+  "viewpoints": [
+    {
+      "scene": "motion-0.jpg",
+      "camera_angles_degrees": [
+        15,
+        25,
+        0
+      ],
+      "synthetic_surface_metres": 2.999999999992049,
+      "estimated_metres": 3.0,
+      "relative_error": 2.6503244043851737e-12
+    },
+    {
+      "scene": "motion-1.jpg",
+      "camera_angles_degrees": [
+        -20,
+        55,
+        15
+      ],
+      "synthetic_surface_metres": 3.0000000000022116,
+      "estimated_metres": 2.99,
+      "relative_error": 0.003333333334068045
+    },
+    {
+      "scene": "motion-2.jpg",
+      "camera_angles_degrees": [
+        30,
+        70,
+        -25
+      ],
+      "synthetic_surface_metres": 3.0000000000033236,
+      "estimated_metres": 3.0,
+      "relative_error": 1.1078915562734437e-12
+    },
+    {
+      "scene": "motion-3.jpg",
+      "camera_angles_degrees": [
+        0,
+        45,
+        40
+      ],
+      "synthetic_surface_metres": 3.000000000000588,
+      "estimated_metres": 3.02,
+      "relative_error": 0.006666666666469423
+    },
+    {
+      "scene": "motion-4.jpg",
+      "camera_angles_degrees": [
+        0,
+        0,
+        0
+      ],
+      "synthetic_surface_metres": 3.000000000004275,
+      "estimated_metres": 2.97,
+      "relative_error": 0.010000000001410658
+    },
+    {
+      "scene": "motion-5.jpg",
+      "camera_angles_degrees": [
+        10,
+        5,
+        0
+      ],
+      "synthetic_surface_metres": 1.4999999999964464,
+      "estimated_metres": 1.51,
+      "relative_error": 0.00666666666905158
+    },
+    {
+      "scene": "motion-6.jpg",
+      "camera_angles_degrees": [
+        -15,
+        75,
+        25
+      ],
+      "synthetic_surface_metres": 3.9999999999969202,
+      "estimated_metres": 4.06,
+      "relative_error": 0.0150000000007815
+    },
+    {
+      "scene": "motion-7.jpg",
+      "camera_angles_degrees": [
+        40,
+        35,
+        -20
+      ],
+      "synthetic_surface_metres": 2.000000000000017,
+      "estimated_metres": 2.01,
+      "relative_error": 0.004999999999991456
+    },
+    {
+      "scene": "motion-8.jpg",
+      "camera_angles_degrees": [
+        20,
+        35,
+        -15
+      ],
+      "synthetic_surface_metres": 2.9999999999932405,
+      "estimated_metres": 3.0,
+      "relative_error": 2.2530866061742927e-12
+    },
+    {
+      "scene": "motion-9.jpg",
+      "camera_angles_degrees": [
+        -20,
+        65,
+        25
+      ],
+      "synthetic_surface_metres": 2.499999999996038,
+      "estimated_metres": 2.5,
+      "relative_error": 1.5849543899548735e-12
+    },
+    {
+      "scene": "motion-1.jpg rotated 90 degrees to portrait",
+      "synthetic_surface_metres": 3,
+      "estimated_metres": 2.99,
+      "relative_error": 0.0033333333333332993
+    }
+  ],
+  "checks": [
+    "35 cm cube reference",
+    "all ten yaw/pitch/roll/distance scenes",
+    "portrait rotation preserves reference",
+    "distance hidden before calibration",
+    "cancelled reference never persists",
+    "zoom change invalidates reference",
+    "stop and restart",
+    "rapid restart during pending inference",
+    "stale overlay and numeric cards expire",
+    "delayed worker reply recovers",
+    "reference survives reload",
+    "clear reference",
+    "malformed photo recovers",
+    "camera permission denial recovers",
+    "photo detection without assumed intrinsics",
+    "PNG export",
+    "diagnostics export",
+    "scoped service worker isolation",
+    "blocked service worker single-thread photo fallback",
+    "original site remains uncontrolled and unisolated",
+    "mobile layout",
+    "no stale distance on cube-free scene",
+    "no neural depth download",
+    "no page errors"
+  ],
+  "limitations": "Synthetic, clear-edged cubes and a controlled camera stream. Not measured on iQOO Neo 6. These results do not establish physical accuracy or phone latency."
+}

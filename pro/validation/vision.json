@@ -1,0 +1,200 @@
+{
+  "passed": true,
+  "date": "2026-10-19",
+  "command": "node pro/tests/vision.test.mjs",
+  "runtime": "Node with shipped OpenCV WASM; independently rendered 35 cm silhouettes with one image reference",
+  "accepted": {
+    "clean": 10,
+    "motionBlur": 10,
+    "desaturated": 10
+  },
+  "observations": {
+    "clean": [
+      {
+        "scene": "motion-0.jpg",
+        "previousMetres": 3.024702393110927,
+        "metres": 3.000069624395628,
+        "relativeError": 2.3208134526386814e-05
+      },
+      {
+        "scene": "motion-1.jpg",
+        "previousMetres": 3.022817346854156,
+        "metres": 3.0009365221336153,
+        "relativeError": 0.00031217404380101677
+      },
+      {
+        "scene": "motion-2.jpg",
+        "previousMetres": 3.0510695829385255,
+        "metres": 2.999973157440495,
+        "relativeError": 8.947520942825804e-06
+      },
+      {
+        "scene": "motion-3.jpg",
+        "previousMetres": 3.0112859042247733,
+        "metres": 3.0125742266285225,
+        "relativeError": 0.004191408875977354
+      },
+      {
+        "scene": "motion-4.jpg",
+        "previousMetres": 3.0167930188978342,
+        "metres": 3.0039681706119996,
+        "relativeError": 0.001322723535906345
+      },
+      {
+        "scene": "motion-5.jpg",
+        "previousMetres": 1.4999208138416178,
+        "metres": 1.5017695223293024,
+        "relativeError": 0.0011796815552400641
+      },
+      {
+        "scene": "motion-6.jpg",
+        "previousMetres": 4.076892586473795,
+        "metres": 4.078608075692941,
+        "relativeError": 0.019652018924020354
+      },
+      {
+        "scene": "motion-7.jpg",
+        "previousMetres": 2.0150156201715124,
+        "metres": 2.0004149163569616,
+        "relativeError": 0.00020745817847234171
+      },
+      {
+        "scene": "motion-8.jpg",
+        "previousMetres": 3.0290808140374805,
+        "metres": 3.000808929159246,
+        "relativeError": 0.0002696430553357221
+      },
+      {
+        "scene": "motion-9.jpg",
+        "previousMetres": 2.5166595632448883,
+        "metres": 2.500276315000297,
+        "relativeError": 0.00011052600170380344
+      }
+    ],
+    "motionBlur": [
+      {
+        "scene": "motion-0.jpg",
+        "previousMetres": 2.902168579916448,
+        "metres": 3.0007435147697676,
+        "relativeError": 0.0002478382592401296
+      },
+      {
+        "scene": "motion-1.jpg",
+        "previousMetres": 2.9654212445240304,
+        "metres": 3.0056215981874517,
+        "relativeError": 0.0018738660617452219
+      },
+      {
+        "scene": "motion-2.jpg",
+        "previousMetres": 3.00783872105552,
+        "metres": 3.001549565298847,
+        "relativeError": 0.0005165217651739162
+      },
+      {
+        "scene": "motion-3.jpg",
+        "previousMetres": 2.9562133060218496,
+        "metres": 2.9574978823326785,
+        "relativeError": 0.014167372555967006
+      },
+      {
+        "scene": "motion-4.jpg",
+        "previousMetres": null,
+        "metres": 3.0111626397954785,
+        "relativeError": 0.003720879930395826
+      },
+      {
+        "scene": "motion-5.jpg",
+        "previousMetres": 1.4851149763004519,
+        "metres": 1.4857445739027348,
+        "relativeError": 0.009503617395830166
+      },
+      {
+        "scene": "motion-6.jpg",
+        "previousMetres": 3.9380107829307343,
+        "metres": 3.927604607218265,
+        "relativeError": 0.018098848194677775
+      },
+      {
+        "scene": "motion-7.jpg",
+        "previousMetres": 1.9688403608671,
+        "metres": 1.9975866437029721,
+        "relativeError": 0.0012066781485223776
+      },
+      {
+        "scene": "motion-8.jpg",
+        "previousMetres": 2.9201196418823385,
+        "metres": 3.0050463444174604,
+        "relativeError": 0.0016821148080770065
+      },
+      {
+        "scene": "motion-9.jpg",
+        "previousMetres": 2.491350872877697,
+        "metres": 2.500982905785386,
+        "relativeError": 0.00039316231573982563
+      }
+    ],
+    "desaturated": [
+      {
+        "scene": "motion-0.jpg",
+        "previousMetres": 3.059616206055687,
+        "metres": 2.9973452501802886,
+        "relativeError": 0.0008849166039224254
+      },
+      {
+        "scene": "motion-1.jpg",
+        "previousMetres": 3.0715777620164513,
+        "metres": 2.9996702989287036,
+        "relativeError": 0.00010990035783586816
+      },
+      {
+        "scene": "motion-2.jpg",
+        "previousMetres": 3.0825497256345074,
+        "metres": 2.9984346192310496,
+        "relativeError": 0.0005217935907574356
+      },
+      {
+        "scene": "motion-3.jpg",
+        "previousMetres": 3.053414259537162,
+        "metres": 3.0531869335755157,
+        "relativeError": 0.01772897785830585
+      },
+      {
+        "scene": "motion-4.jpg",
+        "previousMetres": 3.0701754385458133,
+        "metres": 3.0051804709064123,
+        "relativeError": 0.0017268236340433063
+      },
+      {
+        "scene": "motion-5.jpg",
+        "previousMetres": 1.5167725163652943,
+        "metres": 1.5027821906547367,
+        "relativeError": 0.0018547937721979935
+      },
+      {
+        "scene": "motion-6.jpg",
+        "previousMetres": 4.125836017346465,
+        "metres": 4.099453359120858,
+        "relativeError": 0.024863339781003635
+      },
+      {
+        "scene": "motion-7.jpg",
+        "previousMetres": 2.024532125485111,
+        "metres": 1.9998072991520421,
+        "relativeError": 9.635042398736804e-05
+      },
+      {
+        "scene": "motion-8.jpg",
+        "previousMetres": 3.051379906495874,
+        "metres": 2.999061161209189,
+        "relativeError": 0.0003129462613512546
+      },
+      {
+        "scene": "motion-9.jpg",
+        "previousMetres": 2.5150992929371014,
+        "metres": 2.499221738895633,
+        "relativeError": 0.00031130444016236325
+      }
+    ]
+  },
+  "limitations": "Synthetic pixel tests. Known truth detection boxes are supplied, so this isolates outline and pose fitting. It does not measure detector failures, phone speed or physical accuracy."
+}

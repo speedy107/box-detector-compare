@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b101b">
+  <meta name="color-scheme" content="dark">
+  <title>Cube Lens Pro · Live cube distance</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./isolation.js"></script>
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <main class="app-shell">
+    <header class="app-header">
+      <a class="wordmark" href="./" aria-label="Cube Lens Pro home">
+        <svg class="brand-mark" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="m16 3 12 7v13l-12 7-12-7V10L16 3Z" stroke="currentColor" stroke-width="1.8"/><path d="m4 10 12 7 12-7M16 17v13M10 6.5l12 7v6.8" stroke="currentColor" stroke-width="1.8"/></svg>
+        <span>Cube Lens</span><span class="pro-tag">PRO</span>
+      </a>
+      <span class="size-badge"><span class="status-dot" aria-hidden="true"></span>35 cm cubes</span>
+    </header>
+
+    <section class="control-bar" aria-label="Camera controls">
+      <div class="source-controls">
+        <button id="start" class="button button-primary" type="button" disabled>
+          <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="2" y="5" width="11" height="11" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="m13 8 5-3v11l-5-3" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          Start camera
+        </button>
+        <button id="stop" class="button button-stop" type="button" disabled><span class="stop-icon" aria-hidden="true"></span>Stop</button>
+        <label class="button button-quiet file-button" for="photoFile">
+          <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="2.5" y="2.5" width="15" height="15" rx="2.5" stroke="currentColor" stroke-width="1.5"/><circle cx="7" cy="7" r="1.5" stroke="currentColor" stroke-width="1.5"/><path d="m3 15 4-4 3 3 3-5 4 6" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+          Photo
+          <input id="photoFile" class="visually-hidden" type="file" accept="image/*" disabled>
+        </label>
+      </div>
+      <button id="save" class="button button-icon" type="button" aria-label="Save detection image" title="Save detection image" disabled>
+        <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 2v10m-4-4 4 4 4-4M3 13v4h14v-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </section>
+
+    <div class="workspace">
+      <section class="camera-panel" aria-label="Camera and live measurements">
+        <div class="panel-topline">
+          <h1><span class="viewfinder-icon" aria-hidden="true"></span>Live view</h1>
+          <span id="modelState" class="model-state">Loading…</span>
+        </div>
+        <div id="viewer" class="viewer">
+          <video id="video" autoplay muted playsinline hidden aria-label="Live camera view"></video>
+          <canvas id="photoCanvas" hidden aria-label="Selected photo"></canvas>
+          <canvas id="overlay" hidden aria-label="Detected cubes and estimated distances"></canvas>
+          <div id="placeholder" class="placeholder">
+            <div class="placeholder-art" aria-hidden="true">
+              <svg viewBox="0 0 112 112" fill="none"><path d="M24 39V26a5 5 0 0 1 5-5h13m28 0h13a5 5 0 0 1 5 5v13M88 73v13a5 5 0 0 1-5 5H70m-28 0H29a5 5 0 0 1-5-5V73" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="m56 34 20 12v24L56 82 36 70V46l20-12Z" stroke="currentColor" stroke-width="1.7"/><path d="m36 46 20 12 20-12M56 58v24" stroke="currentColor" stroke-width="1.7"/></svg>
+            </div>
+            <p>Ready when you are</p>
+            <span>Start the camera to find your cubes.</span>
+          </div>
+          <div class="viewer-corner top-left" aria-hidden="true"></div><div class="viewer-corner top-right" aria-hidden="true"></div><div class="viewer-corner bottom-left" aria-hidden="true"></div><div class="viewer-corner bottom-right" aria-hidden="true"></div>
+        </div>
+        <div class="metrics" aria-label="Live performance">
+          <div class="metric"><span class="metric-label">Processing</span><strong id="latency">—</strong></div>
+          <div class="metric"><span class="metric-label">Updates</span><strong id="cadence">—</strong></div>
+          <div class="metric"><span class="metric-label">Reading age</span><strong id="freshness">—</strong></div>
+        </div>
+        <p id="status" class="status-line" role="status" aria-live="polite">Preparing your detector. Photos and video stay on this device.</p>
+      </section>
+
+      <aside class="measurement-panel" aria-label="Cube measurements">
+        <div class="measurements-heading"><h2>Measurements</h2><span id="counts" class="count-label">0 cubes</span></div>
+        <div class="quality-line"><span class="quality-dot" aria-hidden="true"></span><span id="qualityState">Set a reference for distance</span></div>
+        <ul id="detections" class="detections" aria-live="polite" aria-label="Detected cube measurements"></ul>
+        <p id="emptyHint" class="empty-hint">Keep a whole blue or red cube in view, with its edges visible.</p>
+
+        <details id="setupPanel" class="setup-panel" open>
+          <summary><span><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 3h14v14H3zM3 7h3m-3 4h5m-5 4h3m5-12v3m4-3v5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>Camera reference</span><span class="disclosure" aria-hidden="true"></span></summary>
+          <div class="setup-content">
+            <p id="referenceHelp">Show one whole 35 cm cube. Measure from the camera lens to its nearest surface and enter that distance. Hold the distance during setup; you can move and change angle afterwards.</p>
+            <label class="field-label" for="referenceMetres">Measured distance</label>
+            <div class="reference-input-row">
+              <div class="distance-input"><input id="referenceMetres" type="number" min="0.3" max="15" step="0.01" value="3" inputmode="decimal"><span aria-hidden="true">m</span></div>
+              <button id="calibrate" class="button button-reference" type="button" disabled>Set reference</button>
+            </div>
+            <div class="reference-state-row"><p id="calibrationState" role="status" aria-live="polite">Start the camera to set a reference.</p><button id="clearCalibration" class="text-button" type="button" disabled>Clear</button></div>
+            <div class="confidence-control">
+              <label for="confidence">Detection confidence <output id="confidenceValue" for="confidence">50%</output></label>
+              <input id="confidence" type="range" min="35" max="90" step="5" value="50">
+            </div>
+          </div>
+        </details>
+        <details id="about" class="about-panel">
+          <summary>How to get a good reading <span class="disclosure" aria-hidden="true"></span></summary>
+          <div>
+            <p>Distance is approximate and measured to the nearest cube surface. Use stationary 35 × 35 × 35 cm cubes with clear, visible edges.</p>
+            <p>Once referenced, your viewing angle can change. Use the same camera and zoom; set a new reference after changing either. Check readings against a measured distance.</p>
+            <p>Detection runs on your device. Processing time measures the app’s work per frame, not network ping. Phone speed, lighting, blur and hidden corners affect results.</p>
+            <button id="diagnostics" class="text-button diagnostics-button" type="button">Export diagnostics <span aria-hidden="true">↗</span></button>
+          </div>
+        </details>
+      </aside>
+    </div>
+    <footer class="app-footer"><span><span class="privacy-dot" aria-hidden="true"></span>On-device processing</span><span>Blue <i class="legend-dot blue" aria-hidden="true"></i><span class="legend-divider" aria-hidden="true"></span>Red <i class="legend-dot red" aria-hidden="true"></i></span></footer>
+  </main>
+</body>
+</html>
