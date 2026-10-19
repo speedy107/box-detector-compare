@@ -1,0 +1,192 @@
+{
+  "passed": true,
+  "date": "2026-10-19T12:09:48.111087+00:00",
+  "scope": "Instrument workstation UI regression using genuine browser inference and synthetic camera input",
+  "checks": [
+    "camera dominates desktop; inspector at right",
+    "mobile inspector below camera",
+    "1440, 390 and 320 pixel layouts without horizontal overflow",
+    "mobile initial reference controls fit first viewport; reference before inspector",
+    "successful calibration collapses to compact reference bar",
+    "idle readouts do not invent measurements",
+    "visible keyboard focus",
+    "confidence disclosure and keyboard slider",
+    "reference collects seven-frame setup",
+    "35 cm calibration and 3 m reading",
+    "red/blue semantic detection colours",
+    "camera stop and restart",
+    "photo classification without inherited camera distance",
+    "PNG export",
+    "diagnostics export without image data",
+    "recoverable permission denial"
+  ],
+  "layouts": {
+    "mobile_390_initial_reference": {
+      "viewer": {
+        "x": 13,
+        "y": 201,
+        "width": 364,
+        "height": 273,
+        "bottom": 474,
+        "right": 377
+      },
+      "inspector": {
+        "x": 12,
+        "y": 769.421875,
+        "width": 366,
+        "height": 441.28125,
+        "bottom": 1210.703125,
+        "right": 378
+      },
+      "reference": {
+        "x": 12,
+        "y": 519,
+        "width": 366,
+        "height": 235.421875,
+        "bottom": 754.421875,
+        "right": 378
+      },
+      "camera": 0.994535519125683
+    },
+    "mobile_320_initial_reference": {
+      "viewer": {
+        "x": 10,
+        "y": 201,
+        "width": 300,
+        "height": 225,
+        "bottom": 426,
+        "right": 310
+      },
+      "inspector": {
+        "x": 9,
+        "y": 721.421875,
+        "width": 302,
+        "height": 455.671875,
+        "bottom": 1177.09375,
+        "right": 311
+      },
+      "reference": {
+        "x": 9,
+        "y": 471,
+        "width": 302,
+        "height": 235.421875,
+        "bottom": 706.421875,
+        "right": 311
+      },
+      "camera": 0.9933774834437086
+    },
+    "desktop_1440": {
+      "viewer": {
+        "x": 25,
+        "y": 181,
+        "width": 1066,
+        "height": 650,
+        "bottom": 831,
+        "right": 1091
+      },
+      "inspector": {
+        "x": 1110,
+        "y": 143,
+        "width": 306,
+        "height": 778,
+        "bottom": 921,
+        "right": 1416
+      },
+      "reference": {
+        "x": 24,
+        "y": 877,
+        "width": 1068,
+        "height": 44,
+        "bottom": 921,
+        "right": 1092
+      },
+      "camera": 3.4836601307189543
+    },
+    "mobile_390": {
+      "viewer": {
+        "x": 13,
+        "y": 201,
+        "width": 364,
+        "height": 273,
+        "bottom": 474,
+        "right": 377
+      },
+      "inspector": {
+        "x": 12,
+        "y": 581,
+        "width": 366,
+        "height": 456.03125,
+        "bottom": 1037.03125,
+        "right": 378
+      },
+      "reference": {
+        "x": 12,
+        "y": 519,
+        "width": 366,
+        "height": 47,
+        "bottom": 566,
+        "right": 378
+      },
+      "camera": 0.994535519125683
+    },
+    "mobile_320": {
+      "viewer": {
+        "x": 10,
+        "y": 201,
+        "width": 300,
+        "height": 225,
+        "bottom": 426,
+        "right": 310
+      },
+      "inspector": {
+        "x": 9,
+        "y": 533,
+        "width": 302,
+        "height": 467.921875,
+        "bottom": 1000.921875,
+        "right": 311
+      },
+      "reference": {
+        "x": 9,
+        "y": 471,
+        "width": 302,
+        "height": 47,
+        "bottom": 518,
+        "right": 311
+      },
+      "camera": 0.9933774834437086
+    }
+  },
+  "focus_style": {
+    "outline": "solid",
+    "width": 2,
+    "shadow": "rgba(255, 255, 255, 0.533) 0px 1px 0px 0px inset",
+    "colour": "rgb(147, 106, 39)"
+  },
+  "detection_colours": {
+    "blue": "rgb(50, 108, 155)",
+    "red": "rgb(173, 76, 69)"
+  },
+  "reference_progress_observed": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "calibrated_synthetic_metres": 3.0,
+  "diagnostics_frame_count": 37,
+  "screenshots": [
+    "pro/validation/redesign/desktop-idle.png",
+    "pro/validation/redesign/mobile_390-initial-reference.png",
+    "pro/validation/redesign/mobile_320-initial-reference.png",
+    "pro/validation/redesign/desktop-measuring.png",
+    "pro/validation/redesign/mobile_390-measuring.png",
+    "pro/validation/redesign/mobile_320-measuring.png",
+    "pro/validation/redesign/mobile-390-calibration.png",
+    "pro/validation/redesign/mobile-390-photo.png",
+    "pro/validation/redesign/mobile-390-permission-error.png"
+  ],
+  "limitations": "Desktop Chromium and synthetic cube geometry. No physical accuracy or iQOO Neo 6 timing claim."
+}

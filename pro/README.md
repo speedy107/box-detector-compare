@@ -36,3 +36,11 @@ Reports live in `validation/`. The original-site baseline and Pro timings use th
 **These are container benchmarks and synthetic accuracy checks, not measurements on an iQOO Neo 6.** Actual accuracy depends on accurate cube dimensions/reference measurement, edge visibility, lens distortion, blur, lighting and camera processing. Image-fit quality is not a physical accuracy probability. Validate at several measured distances and viewpoints. Processing time means application capture-to-display work, not network ping or total sensor latency.
 
 Final same-scene browser comparison: median capture-to-display **57.15 ms** versus **70.95 ms**; median update interval **57.34 ms** versus **170.9 ms** (about **3×** the update frequency). Main-thread animation gaps stayed at about **16.7 ms**, versus a previous 50 ms 95th percentile. These are the container results recorded in `validation/browser.json` and `validation/baseline.json`.
+
+## Optical workstation interface
+
+The interface uses a graphite acquisition stage, a structured measurement inspector, a separate reference rail and one command toolbar. On mobile, initial reference controls sit immediately below the camera; a stored reference collapses into a compact rail. IBM Plex Sans and Plex Mono are self-hosted with their OFL licence in `fonts/`.
+
+The redesign changes presentation only. Detector/inference/pose/calibration modules are byte-for-byte unchanged, and all other `app.js` source outside five presentation functions is unchanged. Preservation evidence, 16 interface checks, the 24-check functional regression and desktop/mobile screenshots are in `validation/redesign/`. Earlier timing reports remain benchmarks of the original Pro release.
+
+Run the interface workflow check with `python pro/tests/redesign_smoke.py --url http://127.0.0.1:8003/pro/`.

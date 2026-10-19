@@ -22,10 +22,17 @@ function controls(){
   $('calibrate').disabled=!live||!ready;
   $('calibrate').textContent=referenceRequest?'Cancel reference':'Set camera reference';
   $('clearCalibration').disabled=!reference&&!referenceRequest;
+  // Presentation only: expose the existing operating state to the interface.
+  const cameraState=live?(stream?'live':'starting'):photoMode?'photo':lastSnapshot?'paused':'idle';
+  document.body.dataset.cameraState=cameraState;
+  document.body.dataset.referenceState=referenceRequest?'setting':reference?'stored':'needed';
+  setText('cameraState',({live:'Live camera',starting:'Starting',photo:'Photo mode',paused:'Paused',idle:'Standby'})[cameraState]);
+  setText('referenceBadge',referenceRequest?'Acquiring reference':reference?'Reference stored':'Unreferenced');
 }
 function referenceState(){
-  setText('calibrationState',reference?`Camera reference saved at ${reference.referenceMetres.toFixed(2)} m. Move and change viewing angle freely.`:'Start the camera, then set one measured reference.');
+  setText('calibrationState',reference?`Camera reference saved at ${reference.referenceMetres.toFixed(2)} m. Move and change viewing angle freely.`:'Set one measured reference to enable distance readings.');
   setText('qualityState',reference?'Reference saved':'Reference needed');
+  if(reference)$('setupPanel').open=false;
   controls();
 }
 async function warmup(){
@@ -41,31 +48,35 @@ function frameSize(width,height){const scale=Math.min(1,1280/Math.max(width,heig
 function dimensions(width,height){
   if(overlay.width!==width||overlay.height!==height){overlay.width=width;overlay.height=height;}
   $('viewer').style.aspectRatio=`${width}/${height}`;
+  setText('frameResolution',`${width} × ${height} px`);
   $('placeholder').hidden=true;
 }
 function distanceText(box){return Number.isFinite(box.distance)?`≈ ${box.distance.toFixed(2)} m`:box.distanceReason||'Set camera reference';}
 function draw(result){
   const {width,height}=result;dimensions(width,height);overlayContext.clearRect(0,0,width,height);
-  const font=Math.max(13,Math.round(width*.022));overlayContext.font=`600 ${font}px system-ui`;
-  overlayContext.lineWidth=Math.max(2,width*.003);
+  const displayScale=Math.max(.1,Math.min($('viewer').clientWidth/width,$('viewer').clientHeight/height));
+  const font=Math.max(13,Math.round(width*.018),Math.ceil(11/displayScale));overlayContext.font=`500 ${font}px "Plex Mono", monospace`;
+  overlayContext.lineWidth=Math.max(1.5,1.2/displayScale);
   for(const box of result.boxes){
     const color=COLORS[box.classId];overlayContext.strokeStyle=color;overlayContext.strokeRect(box.x1,box.y1,box.x2-box.x1,box.y2-box.y1);
     const text=Number.isFinite(box.distance)?`${distanceText(box)}`:CLASSES[box.classId];
     const tw=overlayContext.measureText(text).width+16,x=Math.max(0,Math.min(box.x1,width-tw)),y=Math.max(0,box.y1-font-13);
-    overlayContext.fillStyle='#071624e8';overlayContext.fillRect(x,y,tw,font+12);
+    overlayContext.fillStyle='#20231fe8';overlayContext.fillRect(x,y,tw,font+12);
     overlayContext.fillStyle=color;overlayContext.fillText(text,x+8,y+font+1);
-    overlayContext.fillStyle='#9dffe0';for(const [px,py] of box.posePoints||[]){overlayContext.beginPath();overlayContext.arc(px,py,Math.max(2,width*.002),0,Math.PI*2);overlayContext.fill();}
+    overlayContext.fillStyle='#e5e7dc';for(const [px,py] of box.posePoints||[]){overlayContext.beginPath();overlayContext.arc(px,py,Math.max(2,width*.002),0,Math.PI*2);overlayContext.fill();}
   }
   overlay.hidden=false;
 }
 function listDetections(result){
   const list=$('detections');list.replaceChildren();
   for(const box of result.boxes){
-    const item=document.createElement('li');item.className=`detection-card ${box.classId===1?'red':'blue'}`;
-    const name=document.createElement('span');name.className='detection-label';name.textContent=CLASSES[box.classId];name.style.color=COLORS[box.classId];
+    const item=document.createElement('li');item.className=`detection-row ${box.classId===1?'red':'blue'}`;
+    const name=document.createElement('span');name.className='detection-label';name.textContent=CLASSES[box.classId];
     const range=document.createElement('strong');range.className=Number.isFinite(box.distance)?'detection-distance':'detection-reason';range.textContent=distanceText(box);
-    const detail=document.createElement('small');detail.className='detection-meta';detail.textContent=Number.isFinite(box.distance)?`${box.quality>=.65?'Clear edges':'Edges fitted'} · ${Math.round(box.score*100)}% detection`:`${Math.round(box.score*100)}% detection`;
-    item.append(name,range,detail);list.append(item);
+    const confidence=document.createElement('span');confidence.className='detection-confidence';confidence.textContent=`${Math.round(box.score*100)}%`;confidence.title='Detector confidence';
+    item.append(name,range,confidence);
+    if(Number.isFinite(box.distance)){const detail=document.createElement('small');detail.className='detection-meta';detail.textContent=box.quality>=.65?'Clear edges':'Edges fitted';item.append(detail);}
+    list.append(item);
   }
   setText('counts',result.boxes.length?`${result.boxes.filter(b=>b.classId===0).length} blue · ${result.boxes.filter(b=>b.classId===1).length} red`:'No cubes detected');
   $('emptyHint').hidden=result.boxes.length>0;

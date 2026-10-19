@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "baseline_commit": "99c1828c01d7e5fd6e32f02745343b775d44c351",
+  "app_changes_limited_to_presentation_functions": [
+    "controls",
+    "referenceState",
+    "dimensions",
+    "draw",
+    "listDetections"
+  ],
+  "all_other_app_source_unchanged": true,
+  "unchanged_core_files_sha256": {
+    "pro/detector.js": "6668bb8c40eac32b55f7e25ee4bfaba286b310c1a611169ccfc770b0653f1549",
+    "pro/inference-worker.js": "90419872193180636a06c4f7f545e1cdbefd9989c8b3e932d0df1045b641c5d2",
+    "pro/inference.js": "52b71151dd7d9fb9f699362e4272d9ae98a5385ac85ffbe8b6488430ca359b07",
+    "pro/pose-geometry.js": "47ce991d2ed17edc0288991bc6017659a75d73867e126dc50a2bdcc9771d98bf",
+    "pro/pose-vision.js": "e7df1443160ceb09cb28bc8a13454eea481e65fc113cccba022ca9cd4f20a302",
+    "pro/reference.js": "2a0d6f110e43acdd69128020b692a650237ba002e96ede5545bdf5479b777e57",
+    "pro/isolation.js": "d34909096dd7abf4c9faf131166c623d65028b52ab6594af6206446ca903c19b",
+    "pro/isolation-sw.js": "42d1b9010200c6630002cd5eb7585e6638e6f96ce23a54129b856a40e6618189",
+    "pro/vendor/ort-wasm-simd-threaded.mjs": "745eb7c0ce6f18a6aa521971b2877babc7ffb27eecb58ab3bc6e5ef4692672e8"
+  }
+}
