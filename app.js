@@ -82,7 +82,14 @@ function paint(result){
     const text=`${CLASSES[box.classId]} ${Math.round(box.score*100)}%${result.depthEnabled?' · '+blockDistanceLabel(box,result):''}`,width=context.measureText(text).width+12;
     const x=Math.min(box.x1,Math.max(0,frame.width-width)),y=Math.max(0,box.y1-font-12);
     context.fillStyle=COLORS[box.classId];context.fillRect(x,y,width,font+12);context.fillStyle='#091321';context.fillText(text,x+6,y+font+2);
-    if(box.posePoints){context.fillStyle='#b2ffe1';for(const [px,py] of box.posePoints){context.beginPath();context.arc(px,py,Math.max(2,frame.width*.002),0,Math.PI*2);context.fill();}}
+    if($('showDeviation').checked&&box.posePoints){
+      context.fillStyle='#b2ffe1';for(const [px,py] of box.posePoints){context.beginPath();context.arc(px,py,Math.max(2,frame.width*.002),0,Math.PI*2);context.fill();}
+      if(box.deviationDeg!==null&&box.deviationDeg!==undefined){
+        const label=`Yaw deviation ${box.deviationDeg.toFixed(1)}°`,labelWidth=context.measureText(label).width+16;
+        const labelX=Math.max(4,Math.min(frame.width-labelWidth,box.x1)),labelY=Math.min(frame.height-font-8,box.y2+6);
+        context.fillStyle='#b2ffe1';context.fillRect(labelX,labelY,labelWidth,font+8);context.fillStyle='#09201b';context.fillText(label,labelX+8,labelY+font);
+      }
+    }
   }
   $('counts').textContent=result.boxes.length?`${result.boxes.filter(b=>b.classId===0).length} blue · ${result.boxes.filter(b=>b.classId===1).length} red`:'No boxes detected';
   const list=$('detectionList');list.replaceChildren();
@@ -159,7 +166,7 @@ async function detect(){
           }
           result.depthElapsed=pose.elapsed;
           result.boxes.forEach((box,i)=>{
-            box.posePoints=pose.boxes[i]?.points;
+            box.posePoints=pose.boxes[i]?.points;box.deviationDeg=pose.boxes[i]?.deviationDeg??null;box.outerVertices=pose.boxes[i]?.outerVertices??null;
             if(!calibrationRequest&&poseReference&&samePoseCamera(poseReference.profile,frameProfile)){box.distance=pose.boxes[i]?.metres??null;box.distanceReason=pose.boxes[i]?.reason||'Cube corners unclear';}
           });
         }catch(error){
@@ -266,5 +273,6 @@ $('save').addEventListener('click',()=>{
 });
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&live)stopCamera('Camera paused while this page was hidden. Start it again to continue.');});
 window.addEventListener('pagehide',()=>{stopCamera();estimator.dispose();poseEstimator.dispose();});
+$('showDeviation').addEventListener('change',()=>{if(lastResult)paint(lastResult);});
 updateMethod();lock(true);
 loadModel().then(()=>status('Your model is ready. Choose a photo or start the camera.')).catch(error=>status(`Could not load your model: ${error.message} Choose a photo or start camera to retry.`,true)).finally(()=>lock(false));
