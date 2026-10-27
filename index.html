@@ -6,9 +6,9 @@
   <meta name="theme-color" content="#101827">
   <title>Box Lens · Block detection and distance</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=pose1">
+  <link rel="stylesheet" href="styles.css?v=pose-angle1">
   <script defer src="vendor/ort.wasm.min.js"></script>
-  <script type="module" src="app.js?v=pose2"></script>
+  <script type="module" src="app.js?v=pose-angle1"></script>
 </head>
 <body>
 <main>
@@ -22,7 +22,7 @@
     <span id="modelState" class="model-state">Loading…</span>
   </section>
   <section class="depth-controls" aria-label="Distance estimates">
-    <div><label for="depthEnabled"><input id="depthEnabled" type="checkbox" checked> Estimate distance</label><p id="modeDescription">Fast mode needs a measured reference and equal-size blocks.</p></div>
+    <div><label for="depthEnabled"><input id="depthEnabled" type="checkbox" checked> Estimate distance</label><label><input id="showDeviation" type="checkbox" checked> Show cube outer edges + deviation angle</label><p id="modeDescription">Fast mode needs a measured reference and equal-size blocks.</p></div>
     <label class="mode-label" for="distanceMode">Method <select id="distanceMode"><option value="pose">Moving camera · 35 cm cubes</option><option value="calibrated">Fixed-view reference · legacy</option><option value="ai">AI estimate · slow</option></select></label>
     <span id="depthState" class="depth-state">Ready to load</span><button id="depthRetry" class="button" hidden>Retry depth</button>
   </section>
@@ -32,7 +32,7 @@
   </section>
   <div id="status" role="status" aria-live="polite">Loading your model. Photos and video stay on your device.</div>
   <section class="detection-view" aria-label="Model detections">
-    <article class="panel"><div class="panel-heading"><h2>Your detector <span id="methodBadge">CUBE POSE</span></h2><span id="timing" class="time">—</span></div><div class="viewer"><div class="placeholder">Choose a photo or start your camera</div><canvas id="resultCanvas" aria-label="Blue and red block detections with estimated distance" hidden></canvas></div><div id="counts" class="counts">No frame yet</div><ul id="detectionList" class="detections"></ul><p id="latencyState" class="latency-state">Target: less than 1,000 ms per processed frame. Device speed varies.</p></article>
+    <article class="panel"><div class="panel-heading"><h2>Your detector <span id="methodBadge">CUBE POSE</span></h2><span id="timing" class="time">—</span></div><div class="viewer"><div class="placeholder">Choose a photo or start your camera</div><canvas id="resultCanvas" aria-label="Blue and red block detections, cube edges and horizontal deviation angle" hidden></canvas></div><div id="counts" class="counts">No frame yet</div><ul id="detectionList" class="detections"></ul><p id="latencyState" class="latency-state">Target: less than 1,000 ms per processed frame. Device speed varies.</p></article>
     <section id="calibrationPanel" class="calibration-panel" aria-label="Camera distance reference">
       <h2>Set a camera reference</h2>
       <p id="referenceHelp">Show one whole 35 × 35 × 35 cm cube. Enter the measured distance from the camera lens to the nearest cube surface. Hold at that distance during setup; your viewing angle may change afterwards.</p>
