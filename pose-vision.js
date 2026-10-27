@@ -47,7 +47,7 @@ globalThis.CubePoseVision=(()=>{
           results.push({metres:fitted.metres,reason:null,points});
         }else if(options.focalNormalized){
           const fitted=CubePoseGeometry.solve(cv,points,options.focalNormalized*width,width,height,.35);
-          results.push(reliable(fitted,size)?{metres:fitted.metres,reason:null,points,fitErrorPixels:fitted.error}:{metres:null,reason:'Cube corners do not fit reliably'});
+          results.push(reliable(fitted,size)?{metres:fitted.metres,reason:null,points,fitErrorPixels:fitted.error,deviationDeg:CubePoseGeometry.deviationFromHeadOn(fitted.rotation)}:{metres:null,reason:'Cube corners do not fit reliably'});
         }else results.push({metres:null,reason:'Set camera reference',points});
       }
     }finally{image.delete();}
