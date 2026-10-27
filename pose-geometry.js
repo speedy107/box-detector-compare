@@ -74,5 +74,11 @@ globalThis.CubePoseGeometry=(()=>{
     if(!best||best.deviation>.025||best.outside>2.5)throw new Error('The cube corners do not support a reliable camera reference. Try a clearer view.');
     return {...best,focalNormalized:best.focal/width};
   }
-  return {solve,calibrate,project,nearestSurface};
+  function deviationFromHeadOn(rotation){
+    if(!Array.isArray(rotation)||rotation.length!==9||!rotation.every(Number.isFinite))return null;
+    const yaw=Math.abs(Math.atan2(rotation[2],rotation[8])*180/Math.PI)%90;
+    const deviation=Math.min(yaw,90-yaw);
+    return Number.isFinite(deviation)?Math.round(deviation*10)/10:null;
+  }
+  return {solve,calibrate,project,nearestSurface,deviationFromHeadOn};
 })();
