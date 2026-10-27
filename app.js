@@ -84,6 +84,13 @@ function paint(result){
     context.fillStyle=COLORS[box.classId];context.fillRect(x,y,width,font+12);context.fillStyle='#091321';context.fillText(text,x+6,y+font+2);
     if($('showDeviation').checked&&box.posePoints){
       context.fillStyle='#b2ffe1';for(const [px,py] of box.posePoints){context.beginPath();context.arc(px,py,Math.max(2,frame.width*.002),0,Math.PI*2);context.fill();}
+      if(box.outerVertices?.length===8){
+        context.strokeStyle='#b2ffe1';context.lineWidth=Math.max(2,frame.width*.003);
+        for(let i=0;i<8;i++)for(const bit of [1,2,4])if((i^(i^bit))>i){
+          const p=box.outerVertices[i],q=box.outerVertices[i^bit];if(!p||!q)continue;
+          context.beginPath();context.moveTo(p[0],p[1]);context.lineTo(q[0],q[1]);context.stroke();
+        }
+      }
       if(box.deviationDeg!==null&&box.deviationDeg!==undefined){
         const label=`Yaw deviation ${box.deviationDeg.toFixed(1)}°`,labelWidth=context.measureText(label).width+16;
         const labelX=Math.max(4,Math.min(frame.width-labelWidth,box.x1)),labelY=Math.min(frame.height-font-8,box.y2+6);
