@@ -86,8 +86,8 @@ function paint(result){
       context.fillStyle='#b2ffe1';for(const [px,py] of box.posePoints){context.beginPath();context.arc(px,py,Math.max(2,frame.width*.002),0,Math.PI*2);context.fill();}
       if(box.outerVertices?.length===8){
         context.strokeStyle='#b2ffe1';context.lineWidth=Math.max(2,frame.width*.003);
-        for(let i=0;i<8;i++)for(const bit of [1,2,4])if((i^(i^bit))>i){
-          const p=box.outerVertices[i],q=box.outerVertices[i^bit];if(!p||!q)continue;
+        for(let i=0;i<8;i++)for(const bit of [1,2,4])if((i&bit)===0){
+          const p=box.outerVertices[i],q=box.outerVertices[i|bit];if(!p||!q)continue;
           context.beginPath();context.moveTo(p[0],p[1]);context.lineTo(q[0],q[1]);context.stroke();
         }
       }
