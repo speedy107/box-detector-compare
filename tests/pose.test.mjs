@@ -5,6 +5,10 @@ import '../pose-geometry.js';
 import {restorePoseReference,samePoseCamera} from '../pose.js';
 
 const cv=await cvModule;
+assert.equal(CubePoseGeometry.deviationFromHeadOn([1,0,0,0,1,0,0,0,1]),0,'A face-on cube has zero deviation');
+const c=Math.SQRT1_2;
+assert.equal(CubePoseGeometry.deviationFromHeadOn([c,0,c,0,1,0,-c,0,c]),45,'A cube diagonal view has 45 degree deviation');
+assert.equal(CubePoseGeometry.deviationFromHeadOn([0,0,1,0,1,0,-1,0,0]),0,'Equivalent adjacent cube face has zero deviation');
 const scenes=JSON.parse(await readFile(new URL('./fixtures/motion/scenes.json',import.meta.url),'utf8'));
 for(const scene of scenes){
   const result=CubePoseGeometry.solve(cv,scene.points,scene.focal,640,480);
